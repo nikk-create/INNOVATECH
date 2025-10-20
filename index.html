@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnovaTech - Innovation & Technologies Digitales</title>
+    <style>
+        /* Reset et Styles Globaux Optimisés */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background: #111; color: #fff; line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        img { max-width: 100%; height: auto; }
+
+        /* Navigation Optimisée */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); z-index: 100; padding: 10px 0; transition: background 0.3s; }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav ul { list-style: none; display: flex; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: #fff; }
+        nav ul li a:hover { color: #00FFFF; }
+        .cta-btn { background: linear-gradient(45deg, #FF6B35, #FF8C42); color: #fff; padding: 10px 20px; border-radius: 25px; transition: transform 0.3s, box-shadow 0.3s; }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FF6B35; }
+
+        /* Hero Section avec 3D */
+        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #111, #222); position: relative; overflow: hidden; }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        #hero .container { text-align: center; z-index: 1; position: relative; }
+        #hero h1 { font-size: clamp(2rem, 5vw, 3rem); color: #00FFFF; text-shadow: 0 0 10px #00FFFF; animation: glow 2s infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 10px #00FFFF; } to { text-shadow: 0 0 20px #00FFFF; } }
+        #hero p { font-size: clamp(1rem, 2vw, 1.2rem); margin: 20px 0; }
+        #hero .cta-btn { margin-top: 30px; }
+
+        /* Sections Générales Optimisées */
+        section { padding: 80px 0; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        section h2 { text-align: center; font-size: clamp(1.5rem, 4vw, 2.5rem); color: #FF6B35; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #222; padding: 20px; border-radius: 15px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid transparent; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3); border-color: #00FFFF; }
+        .card i { font-size: 3rem; color: #00FFFF; margin-bottom: 10px; }
+        .card h3 { color: #FF6B35; }
+
+        /* À Propos */
+        #about .container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: center; justify-content: center; }
+        #about img { border-radius: 15px; loading: lazy; max-width: 100%; height: auto; }
+
+        /* Portfolio */
+        #portfolio .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        #portfolio img { height: 200px; object-fit: cover; border-radius: 15px; loading: lazy; }
+
+        /* Témoignages */
+        #testimonials { background: #000; }
+        #testimonials .grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
+        .testimonial { background: #333; padding: 20px; border-radius: 15px; margin: 10px 0; }
+
+        /* Contact */
+        #contact .container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        #contact form { display: flex; flex-direction: column; }
+        #contact input, #contact textarea { padding: 15px; margin: 10px 0; background: #222; border: 1px solid #00FFFF; color: #fff; border-radius: 10px; transition: border-color 0.3s; }
+        #contact input:focus, #contact textarea:focus { border-color: #FF6B35; outline: none; }
+        #contact button { background: linear-gradient(45deg, #FF6B35, #FF8C42); color: #fff; padding: 15px; border: none; border-radius: 10px; transition: transform 0.3s; }
+        #contact button:hover { transform: scale(1.05); }
+
+        /* Footer */
+        footer { background: #000; text-align: center; padding: 20px; }
+
+        /* Responsivité Optimisée */
+        @media (max-width: 768px) {
+            nav ul { display: none; } /* Simplifié pour mobile, ajoute un menu hamburger si besoin */
+            #about .container, #contact .container { grid-template-columns: 1fr; }
+            #hero h1 { font-size: 2rem; }
+        }
+
+        /* Flip Cards pour Nos Domaines */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            width: 100%;
+            height: 320px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+        .flip-card-front {
+            background: #222;
+            border: 1px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .flip-card-front:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+            border-color: #00FFFF;
+        }
+        .flip-card-back {
+            background: linear-gradient(135deg, #00FFFF, #FF6B35);
+            transform: rotateY(180deg);
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .flip-card-back p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #111;
+            color: #FF6B35;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+        .close-btn:hover {
+            background: #FF6B35;
+            color: #111;
+        }
+    </style>
+
+    <!-- Ajustements Responsivité Supplémentaires -->
+    <style>
+        /* Media Queries Additionnelles pour Responsivité Complète */
+        @media (max-width: 1024px) {
+            .container { width: 95%; padding: 0 15px; }
+            .grid { gap: 15px; }
+            #hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+            #hero p { font-size: clamp(0.9rem, 2vw, 1.1rem); }
+            nav ul { flex-direction: column; }
+        }
+
+        @media (max-width: 768px) {
+            .container { width: 100%; padding: 0 10px; }
+            section { padding: 60px 0; }
+            .card { padding: 15px; }
+            .flip-card { height: 250px; }
+            .flip-card-front img { height: 150px; }
+            #portfolio img { height: 180px; }
+            #contact .container { gap: 30px; }
+            .grid { grid-template-columns: 1fr; }
+            img { width: 100%; height: auto; }
+        }
+
+        @media (max-width: 480px) {
+            nav .container { flex-direction: column; align-items: flex-start; }
+            nav h1 { margin-bottom: 10px; }
+            .cta-btn { padding: 8px 16px; font-size: 0.9rem; }
+            section { padding: 50px 0; }
+            section h2 { font-size: clamp(1.3rem, 4vw, 2.2rem); margin-bottom: 30px; }
+            .grid { grid-template-columns: 1fr; gap: 10px; }
+            .card { padding: 10px; }
+            .card i { font-size: 2.5rem; }
+            .flip-card { height: 220px; }
+            .flip-card-front img { height: 120px; }
+            #portfolio img { height: 150px; }
+            .testimonial { padding: 15px; }
+            #contact input, #contact textarea { padding: 12px; }
+            #contact button { padding: 12px; }
+            footer { padding: 15px; }
+        }
+
+        @media (max-width: 320px) {
+            .container { padding: 0 5px; }
+            nav { padding: 5px 0; }
+            #hero { height: 90vh; }
+            #hero h1 { font-size: 1.5rem; }
+            #hero p { font-size: 0.9rem; margin: 15px 0; }
+            section { padding: 40px 0; }
+            .card { padding: 8px; }
+            .flip-card { height: 200px; }
+            .flip-card-front img { height: 100px; }
+            #portfolio img { height: 120px; }
+            #contact input, #contact textarea { padding: 10px; }
+            #contact button { padding: 10px; }
+        }
+
+        /* Styles pour Menu Hamburger */
+        .hamburger { display: none; flex-direction: column; cursor: pointer; margin-left: auto; }
+        .hamburger div { width: 25px; height: 3px; background: #fff; margin: 3px 0; transition: 0.3s; }
+        .hamburger.active div:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active div:nth-child(2) { opacity: 0; }
+        .hamburger.active div:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        nav ul.mobile-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 20px 0; }
+        nav ul.mobile-menu li { margin: 10px 0; text-align: center; }
+        nav ul.mobile-menu.show { display: flex; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            nav ul { display: none; } /* Garder l'existant, mais ajouter mobile-menu */
+        }
+
+        /* Améliorations pour Touch Devices */
+        @media (hover: none) and (pointer: coarse) {
+            .flip-card:hover { transform: none; }
+            .card:hover { transform: none; box-shadow: none; }
+            .cta-btn:hover { transform: none; box-shadow: none; }
+            nav ul li a:hover { color: #fff; }
+        }
+    </style>
+
+    <!-- Three.js pour l'animation 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <h1>InnovaTech</h1>
+            <ul>
+                <li><a href="#hero">Accueil</a></li>
+                <li><a href="#about">À Propos</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="cta-btn">Demander un devis</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section avec 3D -->
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container">
+            <h1>Innovation & Technologies digitales au service de votre présence en ligne</h1>
+            <p>Transformez vos idées en expériences digitales modernes et performantes.</p>
+            <a href="#contact" class="cta-btn">Demander un devis</a>
+        </div>
+    </section>
+
+    <!-- À Propos -->
+    <section id="about">
+        <div class="container">
+            <img src="image/innov1.jpg" alt="Innovation 1">
+            <div>
+                <h2>À Propos d'InnovaTech</h2>
+                <p>Chez Innovatech, nous allions créativité, design et technologie pour transformer vos idées en solutions digitales raffinées. Chaque projet est pensé avec soin, pour offrir une expérience fluide, moderne et professionnelle. Du site web interactif à l’application sur mesure, Innovatech sublime votre présence digitale avec style et innovation.</p>
+            </div>
+            <img src="image/innov2.jpg" alt="Innovation 2">
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <h2>Nos Services</h2>
+            <div class="grid">
+                <div class="card">
+                    <i>🌐</i>
+                    <h3>Création de sites web modernes et responsives</h3>
+                    <p>Sites sur mesure, optimisés pour tous les appareils.</p>
+                </div>
+                <div class="card">
+                    <i>🎨</i>
+                    <h3>Design & identité visuelle</h3>
+                    <p>Logos et interfaces intuitives pour renforcer votre image.</p>
+                </div>
+                <div class="card">
+                    <i>💼</i>
+                    <h3>E-commerce et optimisation</h3>
+                    <p>Plateformes performantes pour booster vos ventes.</p>
+                </div>
+                <div class="card">
+                    <i>⚙</i>
+                    <h3>Maintenance & amélioration continue</h3>
+                    <p>Support technique et évolutions pour votre site.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio">
+        <div class="container">
+            <h2>Nos Réalisations</h2>
+            <div class="grid">
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="image/skinversité.jpg" alt="Genskin" style="width: 100%; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 10px;">
+                            <h3>🌿 Genskin – Soins de la peau innovants</h3>
+                            <p>Cliquez pour découvrir le projet</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Genskin est une marque dédiée à la beauté naturelle, offrant une gamme de soins de la peau élaborés à partir d'ingrédients naturels. Chaque produit est conçu pour nourrir, protéger et sublimer la peau, tout en respectant l'environnement. De la crème solaire anti-âge au savon exfoliant au charbon, chaque article reflète un engagement envers la qualité et le bien-être cutané.</p>
+                            <a href="https://nikk-create.github.io/Genskin/" target="_blank" class="cta-btn" style="margin-top: 10px;">Visiter le site</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="image/neuroscience.jpg" alt="Lucie International" style="width: 100%; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 10px;">
+                            <h3>🧠 Cabinet Lucie International – Coaching & Neurosciences Appliquées</h3>
+                            <p>Cliquez pour découvrir le projet (en cours)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Le Cabinet Lucie International, dirigé par le Dr. Hermann Degla, propose un accompagnement personnalisé alliant neurosciences appliquées et coaching. Avec plus de 20 ans d'expérience et plus de 5000 patients accompagnés, le cabinet offre des solutions naturelles pour améliorer les performances cognitives, la gestion du stress et le développement personnel. Grâce à des méthodes innovantes et un dispositif exclusif, le Neuro-Synchronisateur, les patients bénéficient d'une approche holistique pour optimiser leur bien-être mental. <em>(Projet en cours de développement)</em></p>
+                            <a href="https://nikk-create.github.io/Lucie-International-Neurologie/" target="_blank" class="cta-btn" style="margin-top: 10px;">Visiter le site</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>Témoignages</h2>
+            <div class="grid">
+                <div class="testimonial">
+                    <p>"Chez Genskin, nous avons pour ambition d’offrir à chacun une expérience de soin unique, alliant innovation, qualité et respect de la peau. Chaque produit est pensé pour révéler la beauté naturelle de nos clients."</p>
+                    <p>- Gilles Alihonou, PDG de Genskin</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Depuis que j’utilise les produits Genskin, ma peau est plus douce et lumineuse. J’adore la sensation de fraîcheur et le fait que tout soit naturel. Je recommande vivement !"</p>
+                    <p>- Sophie T., Utilisatrice</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pourquoi Nous Choisir -->
+    <section id="why-us">
+        <div class="container">
+            <h2>Pourquoi Nous Choisir ?</h2>
+            <div class="grid">
+                <div class="card">
+                    <i>🔒</i>
+                    <h3>Fiabilité</h3>
+                    <p>Engagements tenus, délais respectés.</p>
+                </div>
+                <div class="card">
+                    <i>💡</i>
+                    <h3>Créativité</h3>
+                    <p>Solutions sur mesure pour des expériences uniques.</p>
+                </div>
+                <div class="card">
+                    <i>⭐</i>
+                    <h3>Satisfaction</h3>
+                    <p>Clients ravis, résultats mesurables.</p>
+                </div>
+                <div class="card">
+                    <i>🚀</i>
+                    <h3>Innovation</h3>
+                    <p>Toujours à la pointe des technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nos Domaines -->
+    <section id="domaines">
+        <div class="container">
+            <h2>Nos Domaines</h2>
+            <div class="grid">
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i>🌐</i>
+                            <h3>Création de sites web modernes et responsives</h3>
+                            <p>Cliquez pour en savoir plus</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Nous concevons des sites web sur mesure, entièrement responsives et optimisés pour tous les appareils. Utilisant les technologies les plus récentes comme HTML5, CSS3 et JavaScript, nos créations garantissent une expérience utilisateur fluide, des performances élevées et une compatibilité parfaite sur mobile, tablette et ordinateur.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i>🎨</i>
+                            <h3>Design & identité visuelle</h3>
+                            <p>Cliquez pour en savoir plus</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Notre équipe de designers crée des identités visuelles uniques et mémorables. De la conception de logos accrocheurs à l'élaboration d'interfaces intuitives, nous renforçons votre image de marque pour vous démarquer de la concurrence.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i>💼</i>
+                            <h3>E-commerce & optimisation digitale</h3>
+                            <p>Cliquez pour en savoir plus</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Boostez vos ventes avec nos plateformes e-commerce performantes. Nous intégrons des solutions d'optimisation digitale pour améliorer la conversion, la navigation et l'expérience d'achat, augmentant ainsi vos revenus en ligne.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i>⚙</i>
+                            <h3>Maintenance & amélioration continue</h3>
+                            <p>Cliquez pour en savoir plus</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Assurez la longévité de votre site avec notre service de maintenance et d'amélioration continue. Nous proposons un support technique réactif, des mises à jour régulières et des évolutions pour adapter votre présence digitale aux dernières tendances.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="toggleFlip(this)">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i>📈</i>
+                            <h3>Conseil & stratégie digitale</h3>
+                            <p>Cliquez pour en savoir plus</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                            <p>Bénéficiez de notre expertise en stratégie digitale pour définir et atteindre vos objectifs en ligne. De l'analyse de vos besoins à la mise en place d'un plan d'action personnalisé, nous vous accompagnons pour maximiser votre impact digital.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div>
+                <h2>Contactez-Nous</h2>
+                <form>
+                    <input type="text" placeholder="Votre nom" required aria-label="Nom">
+                    <input type="email" placeholder="Votre email" required aria-label="Email">
+                    <textarea placeholder="Votre message" rows="5" required aria-label="Message"></textarea>
+                    <button type="submit">Envoyer</button>
+                </form>
+            </div>
+            <div>
+                <p>Email : <a href="mailto:protechinova@gmail.com">protechinova@gmail.com</a></p>
+                <p>Téléphone : <a href="tel:+2290159888703">+229 01 59 88 87 03</a></p>
+                <p>WhatsApp : <a href="https://wa.me/2290159888703">Envoyez un message à Innovatech sur WhatsApp</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 InnovaTech. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Animation 3D avec Three.js (Globe rotatif avec connexions)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hero-canvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Globe
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00FFFF, wireframe: true });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        // Connexions (lignes)
+        const linesGeometry = new THREE.BufferGeometry();
+        const positions = [];
+        for (let i = 0; i < 100; i++) {
+            positions.push((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20);
+        }
+        linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        const linesMaterial = new THREE.LineBasicMaterial({ color: 0xFF6B35 });
+        const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
+        scene.add(lines);
+
+        camera.position.z = 10;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y += 0.01;
+            lines.rotation.x += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Redimensionnement
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Intersection Observer pour animations au scroll (optimisé)
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        // Fonction pour basculer les cartes flip
+        function toggleFlip(card) {
+            card.classList.toggle('flipped');
+        }
+
+        // Menu Hamburger pour Mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const navContainer = document.querySelector('nav .container');
+            const navUl = document.querySelector('nav ul');
+
+            // Créer le bouton hamburger
+            const hamburger = document.createElement('div');
+            hamburger.className = 'hamburger';
+            hamburger.innerHTML = '<div></div><div></div><div></div>';
+
+            // Créer le menu mobile
+            const mobileMenu = document.createElement('ul');
+            mobileMenu.className = 'mobile-menu';
+            mobileMenu.innerHTML = navUl.innerHTML;
+
+            // Insérer le hamburger et le menu mobile
+            navContainer.appendChild(hamburger);
+            navContainer.appendChild(mobileMenu);
+
+            // Toggle menu
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('show');
+            });
+
+            // Fermer le menu en cliquant sur un lien
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('show');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
