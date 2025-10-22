@@ -384,3 +384,36 @@ footer {
     padding: 0.5rem;
   }
 }
+/* Conteneur global qui force le scale */
+body > * {
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Transformer le site pour qu’il tienne toujours dans l’écran */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Zoom forcé selon la largeur */
+@media (max-width: 768px) {
+    body {
+        transform: scale(0.85); /* Ajuste ce facteur pour mobile */
+        transform-origin: top center;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        transform: scale(0.7); /* Ajuste pour petits écrans */
+    }
+}
+@media (max-width: 320px) {
+    body {
+        transform: scale(0.6); /* Très petit écran */
+    }
+}

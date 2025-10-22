@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0",maximum-scale=1, user-scalable=no>
     <title>InnovaTech - Innovation & Technologies Digitales</title>
     <style>
         /* Reset et Styles Globaux Optimisés */
@@ -78,7 +78,7 @@
             background-color: transparent;
             perspective: 1000px;
             width: 100%;
-            height: 320px;
+            min-height: 320px;
         }
         .flip-card-inner {
             position: relative;
@@ -142,6 +142,14 @@
         .close-btn:hover {
             background: #FF6B35;
             color: #111;
+        }
+
+        .domain-img, .project-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
         }
     </style>
 
@@ -295,42 +303,121 @@
         </div>
     </section>
 
-    <!-- Portfolio -->
-    <section id="portfolio">
-        <div class="container">
-            <h2>Nos Réalisations</h2>
-            <div class="grid">
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="image/skinversité.jpg" alt="Genskin" style="width: 100%; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 10px;">
-                            <h3>🌿 Genskin – Soins de la peau innovants</h3>
-                            <p>Cliquez pour découvrir le projet</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Genskin est une marque dédiée à la beauté naturelle, offrant une gamme de soins de la peau élaborés à partir d'ingrédients naturels. Chaque produit est conçu pour nourrir, protéger et sublimer la peau, tout en respectant l'environnement. De la crème solaire anti-âge au savon exfoliant au charbon, chaque article reflète un engagement envers la qualité et le bien-être cutané.</p>
-                            <a href="https://nikk-create.github.io/Genskin/" target="_blank" class="cta-btn" style="margin-top: 10px;">Visiter le site</a>
-                        </div>
+<!-- Portfolio -->
+<section id="portfolio">
+    <div class="container">
+        <h2>Nos Réalisations</h2>
+        <div class="grid">
+            <!-- Projet 1 -->
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/skinversité.jpg" alt="Genskin" class="project-img">
+                        <h3>🌿 Genskin – Soins de la peau innovants</h3>
+                        <p>Cliquez pour découvrir le projet</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Genskin est une marque dédiée à la beauté naturelle, offrant une gamme de soins de la peau élaborés à partir d'ingrédients naturels. Chaque produit est conçu pour nourrir, protéger et sublimer la peau, tout en respectant l'environnement. De la crème solaire anti-âge au savon exfoliant au charbon, chaque article reflète un engagement envers la qualité et le bien-être cutané.</p>
+                        <a href="https://nikk-create.github.io/Genskin/" target="_blank" class="cta-btn">Visiter le site</a>
                     </div>
                 </div>
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="image/neuroscience.jpg" alt="Lucie International" style="width: 100%; height: 150px; object-fit: cover; border-radius: 15px; margin-bottom: 10px;">
-                            <h3>🧠 Cabinet Lucie International – Coaching & Neurosciences Appliquées</h3>
-                            <p>Cliquez pour découvrir le projet (en cours)</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Le Cabinet Lucie International, dirigé par le Dr. Hermann Degla, propose un accompagnement personnalisé alliant neurosciences appliquées et coaching. Avec plus de 20 ans d'expérience et plus de 5000 patients accompagnés, le cabinet offre des solutions naturelles pour améliorer les performances cognitives, la gestion du stress et le développement personnel. Grâce à des méthodes innovantes et un dispositif exclusif, le Neuro-Synchronisateur, les patients bénéficient d'une approche holistique pour optimiser leur bien-être mental. <em>(Projet en cours de développement)</em></p>
-                            <a href="https://nikk-create.github.io/Lucie-International-Neurologie/" target="_blank" class="cta-btn" style="margin-top: 10px;">Visiter le site</a>
-                        </div>
+            </div>
+
+            <!-- Projet 2 -->
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/neuroscience.jpg" alt="Lucie International" class="project-img">
+                        <h3>🧠 Cabinet Lucie International – Coaching & Neurosciences Appliquées</h3>
+                        <p>Cliquez pour découvrir le projet (en cours)</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Le Cabinet Lucie International, dirigé par le Dr. Hermann Degla, propose un accompagnement personnalisé alliant neurosciences appliquées et coaching. Avec plus de 20 ans d'expérience et plus de 5000 patients accompagnés, le cabinet offre des solutions naturelles pour améliorer les performances cognitives, la gestion du stress et le développement personnel. Grâce à des méthodes innovantes et un dispositif exclusif, le Neuro-Synchronisateur, les patients bénéficient d'une approche holistique pour optimiser leur bien-être mental. <em>(Projet en cours de développement)</em></p>
+                        <a href="https://nikk-create.github.io/Lucie-International-Neurologie/" target="_blank" class="cta-btn">Visiter le site</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<style>
+/* Grille responsive */
+#portfolio .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Espace entre les projets */
+}
+
+/* Flip-card */
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    min-height: 320px; /* Forcer la hauteur pour que le texte ne dépasse pas */
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 15px;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back */
+.flip-card-front, .flip-card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    word-wrap: break-word; /* Texte reste dans le cadre */
+}
+
+/* Back face */
+.flip-card-back {
+    transform: rotateY(180deg);
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Images */
+.project-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* CTA Button */
+.cta-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+</style>
+
+
+
 
     <!-- Témoignages -->
     <section id="testimonials">
@@ -379,105 +466,280 @@
     </section>
 
     <!-- Nos Domaines -->
-    <section id="domaines">
-        <div class="container">
-            <h2>Nos Domaines</h2>
-            <div class="grid">
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <i>🌐</i>
-                            <h3>Création de sites web modernes et responsives</h3>
-                            <p>Cliquez pour en savoir plus</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Nous concevons des sites web sur mesure, entièrement responsives et optimisés pour tous les appareils. Utilisant les technologies les plus récentes comme HTML5, CSS3 et JavaScript, nos créations garantissent une expérience utilisateur fluide, des performances élevées et une compatibilité parfaite sur mobile, tablette et ordinateur.</p>
-                        </div>
+<section id="domaines">
+    <div class="container">
+        <h2>Nos Domaines</h2>
+        <div class="grid">
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/domaine1.jpg" alt="Création de sites web" class="domain-img">
+                        <h3>Création de sites web modernes et responsives</h3>
+                        <p>Cliquez pour en savoir plus</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                        <p>Nous concevons des sites web sur mesure, entièrement responsives et optimisés pour tous les appareils. Utilisant les technologies les plus récentes comme HTML5, CSS3 et JavaScript, nos créations garantissent une expérience utilisateur fluide, des performances élevées et une compatibilité parfaite sur mobile, tablette et ordinateur.</p>
                     </div>
                 </div>
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <i>🎨</i>
-                            <h3>Design & identité visuelle</h3>
-                            <p>Cliquez pour en savoir plus</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Notre équipe de designers crée des identités visuelles uniques et mémorables. De la conception de logos accrocheurs à l'élaboration d'interfaces intuitives, nous renforçons votre image de marque pour vous démarquer de la concurrence.</p>
-                        </div>
+            </div>
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/domaine2.jpg" alt="Design & identité visuelle" class="domain-img">
+                        <h3>Design & identité visuelle</h3>
+                        <p>Cliquez pour en savoir plus</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                        <p>Notre équipe de designers crée des identités visuelles uniques et mémorables. De la conception de logos accrocheurs à l'élaboration d'interfaces intuitives, nous renforçons votre image de marque pour vous démarquer de la concurrence.</p>
                     </div>
                 </div>
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <i>💼</i>
-                            <h3>E-commerce & optimisation digitale</h3>
-                            <p>Cliquez pour en savoir plus</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Boostez vos ventes avec nos plateformes e-commerce performantes. Nous intégrons des solutions d'optimisation digitale pour améliorer la conversion, la navigation et l'expérience d'achat, augmentant ainsi vos revenus en ligne.</p>
-                        </div>
+            </div>
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/domaine3.jpg" alt="E-commerce & optimisation digitale" class="domain-img">
+                        <h3>E-commerce & optimisation digitale</h3>
+                        <p>Cliquez pour en savoir plus</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                        <p>Boostez vos ventes avec nos plateformes e-commerce performantes. Nous intégrons des solutions d'optimisation digitale pour améliorer la conversion, la navigation et l'expérience d'achat, augmentant ainsi vos revenus en ligne.</p>
                     </div>
                 </div>
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <i>⚙</i>
-                            <h3>Maintenance & amélioration continue</h3>
-                            <p>Cliquez pour en savoir plus</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Assurez la longévité de votre site avec notre service de maintenance et d'amélioration continue. Nous proposons un support technique réactif, des mises à jour régulières et des évolutions pour adapter votre présence digitale aux dernières tendances.</p>
-                        </div>
+            </div>
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/domaine4.jpg" alt="Maintenance & amélioration continue" class="domain-img">
+                        <h3>Maintenance & amélioration continue</h3>
+                        <p>Cliquez pour en savoir plus</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                        <p>Assurez la longévité de votre site avec notre service de maintenance et d'amélioration continue. Nous proposons un support technique réactif, des mises à jour régulières et des évolutions pour adapter votre présence digitale aux dernières tendances.</p>
                     </div>
                 </div>
-                <div class="flip-card" onclick="toggleFlip(this)">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <i>📈</i>
-                            <h3>Conseil & stratégie digitale</h3>
-                            <p>Cliquez pour en savoir plus</p>
-                        </div>
-                        <div class="flip-card-back">
-                            <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
-                            <p>Bénéficiez de notre expertise en stratégie digitale pour définir et atteindre vos objectifs en ligne. De l'analyse de vos besoins à la mise en place d'un plan d'action personnalisé, nous vous accompagnons pour maximiser votre impact digital.</p>
-                        </div>
+            </div>
+            <div class="flip-card" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/domaine5.jpg" alt="Conseil & stratégie digitale" class="domain-img">
+                        <h3>Conseil & stratégie digitale</h3>
+                        <p>Cliquez pour en savoir plus</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); toggleFlip(this.parentElement.parentElement.parentElement)">×</button>
+                        <p>Bénéficiez de notre expertise en stratégie digitale pour définir et atteindre vos objectifs en ligne. De l'analyse de vos besoins à la mise en place d'un plan d'action personnalisé, nous vous accompagnons pour maximiser votre impact digital.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact -->
-    <section id="contact">
-        <div class="container">
-            <div>
-                <h2>Contactez-Nous</h2>
-                <form>
-                    <input type="text" placeholder="Votre nom" required aria-label="Nom">
-                    <input type="email" placeholder="Votre email" required aria-label="Email">
-                    <textarea placeholder="Votre message" rows="5" required aria-label="Message"></textarea>
-                    <button type="submit">Envoyer</button>
-                </form>
-            </div>
-            <div>
-                <p>Email : <a href="mailto:protechinova@gmail.com">protechinova@gmail.com</a></p>
-                <p>Téléphone : <a href="tel:+2290159888703">+229 01 59 88 87 03</a></p>
-                <p>WhatsApp : <a href="https://wa.me/2290159888703">Envoyez un message à Innovatech sur WhatsApp</a></p>
-            </div>
+<style>
+/* Grille responsive */
+#domaines .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Flip-card */
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    min-height: 320px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 15px;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back */
+.flip-card-front, .flip-card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+/* Back face */
+.flip-card-back {
+    transform: rotateY(180deg);
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Images */
+.domain-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+</style>
+
+
+
+  <!-- Contact -->
+<section id="contact">
+    <div class="container">
+        <div>
+            <h2>Contactez-Nous</h2>
+            <form id="contactForm">
+                <label for="name">Votre nom</label>
+                <input type="text" id="name" name="name" placeholder="Votre nom" required aria-label="Nom">
+                
+                <label for="email">Votre email</label>
+                <input type="email" id="email" name="email" placeholder="Votre email" required aria-label="Email">
+                
+                <label for="method">Méthode de contact</label>
+                <select id="method" name="method" required>
+                    <option value="email">Envoyer par email</option>
+                    <option value="whatsapp">Envoyer par WhatsApp</option>
+                </select>
+                
+                <label for="message">Votre message</label>
+                <textarea id="message" name="message" placeholder="Votre message" rows="5" required aria-label="Message"></textarea>
+                
+                <button type="submit">Envoyer</button>
+            </form>
         </div>
-    </section>
+        <div>
+            <p>Email : <a href="mailto:protechinova@gmail.com">protechinova@gmail.com</a></p>
+            <p>Téléphone : <a href="tel:+2290159888703">+229 01 59 88 87 03</a></p>
+            <p>WhatsApp : <a href="https://wa.me/2290159888703">Envoyez un message à Innovatech sur WhatsApp</a></p>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Contact section styles */
+#contact .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+#contact form {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+#contact form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#contact form input, #contact form select, #contact form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#contact form button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#contact form button:hover {
+    background-color: #0056b3;
+}
+
+#contact div:last-child {
+    flex: 1;
+    min-width: 280px;
+}
+
+#contact div:last-child p {
+    margin-bottom: 10px;
+}
+
+#contact div:last-child a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+#contact div:last-child a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const method = document.getElementById('method').value;
+    const message = document.getElementById('message').value;
+    
+    const fullMessage = `Nom: ${name}\nEmail: ${email}\nMessage: ${message}`;
+    
+    if (method === 'email') {
+        // Ouvrir le client email avec les données pré-remplies
+        const subject = encodeURIComponent('Message de contact depuis le site');
+        const body = encodeURIComponent(fullMessage);
+        window.location.href = `mailto:protechinova@gmail.com?subject=${subject}&body=${body}`;
+    } else if (method === 'whatsapp') {
+        // Ouvrir WhatsApp avec le message pré-rempli
+        const whatsappMessage = encodeURIComponent(fullMessage);
+        window.open(`https://wa.me/2290159888703?text=${whatsappMessage}`, '_blank');
+    }
+});
+</script>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2023 InnovaTech. Tous droits réservés.</p>
     </footer>
-
-    <script>
+     <script>
         // Animation 3D avec Three.js (Globe rotatif avec connexions)
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -568,6 +830,7 @@
                 });
             });
         });
-    </script>
+
+</script>
 </body>
 </html>
