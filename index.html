@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0",maximum-scale=1, user-scalable=no>
+    <meta name="description" content="InnovaTech : Agence spécialisée en création de sites web modernes, design, e-commerce et stratégies digitales. Transformez vos idées en expériences digitales performantes.">
+    <meta name="keywords" content="création site web, design digital, e-commerce, optimisation digitale, InnovaTech, Bénin">
     <title>InnovaTech - Innovation & Technologies Digitales</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Reset et Styles Globaux Optimisés */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,6 +26,19 @@
         nav ul li a:hover { color: #00FFFF; }
         .cta-btn { background: linear-gradient(45deg, #FF6B35, #FF8C42); color: #fff; padding: 10px 20px; border-radius: 25px; transition: transform 0.3s, box-shadow 0.3s; }
         .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #FF6B35; }
+        .lang-toggle { display: flex; align-items: center; margin-left: 20px; }
+        .lang-toggle button { background: none; border: 1px solid #00FFFF; color: #fff; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin: 0 5px; transition: background 0.3s; }
+        .lang-toggle button.active { background: #00FFFF; color: #111; }
+
+        /* Bouton retour en haut */
+        #back-to-top { position: fixed; bottom: 20px; right: 20px; background: #00FFFF; color: #111; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; z-index: 1000; }
+        #back-to-top.show { opacity: 1; visibility: visible; }
+        #back-to-top:hover { background: #FF6B35; }
+
+        /* Animation de chargement pour le hero */
+        .hero-loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; display: flex; justify-content: center; align-items: center; z-index: 10; transition: opacity 0.5s; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #00FFFF; border-top: 5px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Hero Section avec 3D */
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #111, #222); position: relative; overflow: hidden; }
@@ -47,8 +64,16 @@
         #about img { border-radius: 15px; loading: lazy; max-width: 100%; height: auto; }
 
         /* Portfolio */
-        #portfolio .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        #portfolio .grid { grid-template-columns: repeat(2, 1fr); }
         #portfolio img { height: 200px; object-fit: cover; border-radius: 15px; loading: lazy; }
+        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+        .filter-btn { background: #222; color: #fff; border: 1px solid #00FFFF; padding: 10px 20px; border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: #00FFFF; color: #111; }
+        .tech-icons { display: flex; justify-content: center; gap: 10px; margin: 10px 0; }
+        .tech-icons i { font-size: 1.5rem; color: #00FFFF; }
+        .details-btn { background: #FF6B35; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        .details-btn:hover { background: #FF8C42; }
+        .flip-card-back .testimonial { font-style: italic; color: #333; margin-top: 10px; }
 
         /* Témoignages */
         #testimonials { background: #000; }
@@ -74,12 +99,14 @@
         }
 
         /* Flip Cards pour Nos Domaines */
-        .flip-card {
-            background-color: transparent;
-            perspective: 1000px;
-            width: 100%;
-            min-height: 320px;
-        }
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+}
         .flip-card-inner {
             position: relative;
             width: 100%;
@@ -144,9 +171,18 @@
             color: #111;
         }
 
-        .domain-img, .project-img {
+        .project-img {
             width: 100%;
-            height: 150px;
+            height: 220px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 200px;
             object-fit: cover;
             border-radius: 15px;
             margin-bottom: 15px;
@@ -171,6 +207,7 @@
             .flip-card { height: 250px; }
             .flip-card-front img { height: 150px; }
             #portfolio img { height: 180px; }
+            #portfolio .grid { grid-template-columns: 1fr; }
             #contact .container { gap: 30px; }
             .grid { grid-template-columns: 1fr; }
             img { width: 100%; height: auto; }
@@ -235,6 +272,9 @@
 
     <!-- Three.js pour l'animation 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Tidio Chat Integration -->
+    <script src="//code.tidio.co/abcdefghijklmnop1234567890.js" async></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -242,13 +282,17 @@
         <div class="container">
             <h1>InnovaTech</h1>
             <ul>
-                <li><a href="#hero">Accueil</a></li>
-                <li><a href="#about">À Propos</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#hero" data-translate="nav.home">Accueil</a></li>
+                <li><a href="#about" data-translate="nav.about">À Propos</a></li>
+                <li><a href="#services" data-translate="nav.services">Services</a></li>
+                <li><a href="#portfolio" data-translate="nav.portfolio">Portfolio</a></li>
+                <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
             </ul>
-            <a href="#contact" class="cta-btn">Demander un devis</a>
+            <div class="lang-toggle">
+                <button id="lang-fr" class="active" onclick="setLanguage('fr')">FR</button>
+                <button id="lang-en" onclick="setLanguage('en')">EN</button>
+            </div>
+            <a href="#contact" class="cta-btn" data-translate="nav.quote">Demander un devis</a>
         </div>
     </nav>
 
@@ -256,9 +300,9 @@
     <section id="hero">
         <canvas id="hero-canvas"></canvas>
         <div class="container">
-            <h1>Innovation & Technologies digitales au service de votre présence en ligne</h1>
-            <p>Transformez vos idées en expériences digitales modernes et performantes.</p>
-            <a href="#contact" class="cta-btn">Demander un devis</a>
+            <h1 data-translate="hero.title">Innovation & Technologies digitales au service de votre présence en ligne</h1>
+            <p data-translate="hero.subtitle">Transformez vos idées en expériences digitales modernes et performantes.</p>
+            <a href="#contact" class="cta-btn" data-translate="hero.button">Demander un devis</a>
         </div>
     </section>
 
@@ -307,14 +351,25 @@
 <section id="portfolio">
     <div class="container">
         <h2>Nos Réalisations</h2>
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="e-commerce">E-commerce</button>
+            <button class="filter-btn" data-filter="coaching">Coaching</button>
+            <button class="filter-btn" data-filter="outils">Outils</button>
+            <button class="filter-btn" data-filter="jeux">Jeux</button>
+        </div>
         <div class="grid">
             <!-- Projet 1 -->
-            <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card" data-category="e-commerce" onclick="toggleFlip(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="image/skinversité.jpg" alt="Genskin" class="project-img">
                         <h3>🌿 Genskin – Soins de la peau innovants</h3>
-                        <p>Cliquez pour découvrir le projet</p>
+                        <div class="tech-icons">
+                            <i class="fab fa-html5" title="HTML5"></i>
+                            <i class="fab fa-css3-alt" title="CSS3"></i>
+                            <i class="fab fa-js-square" title="JavaScript"></i>
+                        </div>
                     </div>
                     <div class="flip-card-back">
                         <p>Genskin est une marque dédiée à la beauté naturelle, offrant une gamme de soins de la peau élaborés à partir d'ingrédients naturels. Chaque produit est conçu pour nourrir, protéger et sublimer la peau, tout en respectant l'environnement. De la crème solaire anti-âge au savon exfoliant au charbon, chaque article reflète un engagement envers la qualité et le bien-être cutané.</p>
@@ -324,12 +379,16 @@
             </div>
 
             <!-- Projet 2 -->
-            <div class="flip-card" onclick="toggleFlip(this)">
+            <div class="flip-card" data-category="coaching" onclick="toggleFlip(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <img src="image/neuroscience.jpg" alt="Lucie International" class="project-img">
                         <h3>🧠 Cabinet Lucie International – Coaching & Neurosciences Appliquées</h3>
-                        <p>Cliquez pour découvrir le projet (en cours)</p>
+                        <div class="tech-icons">
+                            <i class="fab fa-html5" title="HTML5"></i>
+                            <i class="fab fa-css3-alt" title="CSS3"></i>
+                            <i class="fab fa-js-square" title="JavaScript"></i>
+                        </div>
                     </div>
                     <div class="flip-card-back">
                         <p>Le Cabinet Lucie International, dirigé par le Dr. Hermann Degla, propose un accompagnement personnalisé alliant neurosciences appliquées et coaching. Avec plus de 20 ans d'expérience et plus de 5000 patients accompagnés, le cabinet offre des solutions naturelles pour améliorer les performances cognitives, la gestion du stress et le développement personnel. Grâce à des méthodes innovantes et un dispositif exclusif, le Neuro-Synchronisateur, les patients bénéficient d'une approche holistique pour optimiser leur bien-être mental. <em>(Projet en cours de développement)</em></p>
@@ -337,87 +396,99 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Projet 3 -->
+            <div class="flip-card" data-category="outils" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/startup.jpg" alt="Startup Planner" class="project-img">
+                        <h3>🔹 Startup Planner</h3>
+                        <div class="tech-icons">
+                            <i class="fab fa-html5" title="HTML5"></i>
+                            <i class="fab fa-css3-alt" title="CSS3"></i>
+                            <i class="fab fa-js-square" title="JavaScript"></i>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Startup Planner est une plateforme intuitive conçue pour accompagner les jeunes entrepreneurs dans la structuration et la planification de leurs projets. Elle offre des outils simples et efficaces permettant d’organiser ses idées, définir un modèle d’affaires, analyser la faisabilité du projet et générer un plan professionnalisé. Grâce à son interface moderne, l’utilisateur peut suivre l’évolution de ses projets, clarifier ses objectifs et mieux visualiser les étapes essentielles de la création d’entreprise.</p>
+                        <a href="https://nikk-create.github.io/Startup-Planner/" target="_blank" class="cta-btn">Visiter le site</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projet 4 -->
+            <div class="flip-card" data-category="jeux" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/skyracer.jpg" alt="SkyRacer" class="project-img">
+                        <h3>🕹️ SkyRacer</h3>
+                        <div class="tech-icons">
+                            <i class="fab fa-html5" title="HTML5"></i>
+                            <i class="fab fa-css3-alt" title="CSS3"></i>
+                            <i class="fab fa-js-square" title="JavaScript"></i>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>SkyRacer est un mini-jeu dynamique conçu pour offrir une expérience rapide, fun et addictive. Le joueur doit esquiver les obstacles tout en avançant dans un environnement aérien fluide où la difficulté augmente progressivement. Le jeu propose plusieurs modes pour varier l’expérience et s’adapte aussi bien aux utilisateurs mobile qu’ordinateur, garantissant un divertissement simple, direct et accessible à tous.</p>
+                        <a href="https://nikk-create.github.io/SkyRacer/" target="_blank" class="cta-btn">Visiter le site</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projet 5 -->
+            <div class="flip-card" data-category="outils" onclick="toggleFlip(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="image/amazone.jpg" alt="StudiiCash-BJ" class="project-img">
+                        <h3>📚 StudiiCash-BJ</h3>
+                        <div class="tech-icons">
+                            <i class="fab fa-html5" title="HTML5"></i>
+                            <i class="fab fa-css3-alt" title="CSS3"></i>
+                            <i class="fab fa-js-square" title="JavaScript"></i>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>StudiiCash-BJ est une solution pensée pour accompagner les étudiants dans leur gestion quotidienne, leur productivité et l’optimisation de leurs ressources. Le site propose un ensemble d’outils permettant d’organiser ses tâches, suivre ses dépenses, planifier ses activités et accéder à des fonctionnalités dédiées à la réussite universitaire. L’objectif est d’offrir une plateforme moderne et pratique qui répond aux besoins réels des étudiants béninois.</p>
+                        <a href="https://nikk-create.github.io/StudiiCash-BJ/" target="_blank" class="cta-btn">Visiter le site</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<style>
-/* Grille responsive */
-#portfolio .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px; /* Espace entre les projets */
-}
-
-/* Flip-card */
-.flip-card {
-    background-color: transparent;
-    perspective: 1000px;
-    cursor: pointer;
-    position: relative;
-    min-height: 320px; /* Forcer la hauteur pour que le texte ne dépasse pas */
-}
-
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    border-radius: 15px;
-}
-
-.flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
-}
-
-/* Front and back */
-.flip-card-front, .flip-card-back {
-    backface-visibility: hidden;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    word-wrap: break-word; /* Texte reste dans le cadre */
-}
-
-/* Back face */
-.flip-card-back {
-    transform: rotateY(180deg);
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
-
-/* Images */
-.project-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 15px;
-}
-
-/* CTA Button */
-.cta-btn {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #007BFF;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-</style>
-
-
-
+    <!-- Blog & Insights -->
+    <section id="blog">
+        <div class="container">
+            <h2>Blog & Insights</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="image/blog1.jpg" alt="Tendances 2024 en Développement Web" class="blog-img">
+                    <h3>Tendances 2024 en Développement Web</h3>
+                    <p>Découvrez les dernières tendances en développement web pour 2024, incluant les frameworks modernes, l'IA intégrée et les designs responsives avancés.</p>
+                    <a href="#" class="cta-btn">Lire plus</a>
+                </div>
+                <div class="card">
+                    <img src="image/blog2.jpg" alt="Optimisation SEO pour PME" class="blog-img">
+                    <h3>Optimisation SEO pour PME</h3>
+                    <p>Conseils pratiques pour améliorer le référencement de votre site web et attirer plus de clients organiques.</p>
+                    <a href="#" class="cta-btn">Lire plus</a>
+                </div>
+                <div class="card">
+                    <img src="image/blog3.jpg" alt="Étude de Cas : Site E-commerce Réussi" class="blog-img">
+                    <h3>Étude de Cas : Site E-commerce Réussi</h3>
+                    <p>Analyse d'un projet e-commerce qui a doublé ses ventes grâce à une stratégie digitale optimisée.</p>
+                    <a href="#" class="cta-btn">Lire plus</a>
+                </div>
+                <div class="card">
+                    <img src="image/blog4.jpg" alt="Sécurité Web Essentielle" class="blog-img">
+                    <h3>Sécurité Web Essentielle</h3>
+                    <p>Protégez votre site contre les menaces cyber avec ces bonnes pratiques de sécurité indispensables.</p>
+                    <a href="#" class="cta-btn">Lire plus</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Témoignages -->
     <section id="testimonials">
@@ -547,15 +618,6 @@
     gap: 30px;
 }
 
-/* Flip-card */
-.flip-card {
-    background-color: transparent;
-    perspective: 1000px;
-    cursor: pointer;
-    position: relative;
-    min-height: 320px;
-}
-
 .flip-card-inner {
     position: relative;
     width: 100%;
@@ -649,68 +711,6 @@
     </div>
 </section>
 
-<style>
-/* Contact section styles */
-#contact .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-#contact form {
-    flex: 1;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-}
-
-#contact form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-#contact form input, #contact form select, #contact form textarea {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-#contact form button {
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#contact form button:hover {
-    background-color: #0056b3;
-}
-
-#contact div:last-child {
-    flex: 1;
-    min-width: 280px;
-}
-
-#contact div:last-child p {
-    margin-bottom: 10px;
-}
-
-#contact div:last-child a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-#contact div:last-child a:hover {
-    text-decoration: underline;
-}
-</style>
-
 <script>
 document.getElementById('contactForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -735,10 +735,15 @@ document.getElementById('contactForm').addEventListener('submit', function(event
 });
 </script>
 
+    <!-- Bouton Retour en Haut -->
+    <button id="back-to-top" title="Retour en haut">↑</button>
+
     <!-- Footer -->
     <footer>
-        <p>&copy; 2023 InnovaTech. Tous droits réservés.</p>
+        <p data-translate="footer">&copy; 2023 InnovaTech. Tous droits réservés.</p>
     </footer>
+
+    <script src="lang.js"></script>
      <script>
         // Animation 3D avec Three.js (Globe rotatif avec connexions)
         const scene = new THREE.Scene();
@@ -827,6 +832,60 @@ document.getElementById('contactForm').addEventListener('submit', function(event
                 link.addEventListener('click', function() {
                     hamburger.classList.remove('active');
                     mobileMenu.classList.remove('show');
+                });
+            });
+        });
+
+        // Bouton Retour en Haut
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Animations supplémentaires : Fade-in pour les cartes
+        const cards = document.querySelectorAll('.card');
+        const observerCards = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observerCards.observe(card);
+        });
+
+        // Filtrage du portfolio
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('#portfolio .flip-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Retirer la classe active de tous les boutons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filterValue === 'all' || category === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             });
         });
