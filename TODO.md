@@ -12,7 +12,7 @@
 ### 1. Intégration de Chat en Direct
 - [x] Intégrer un chatbot via Tidio ou Intercom pour support instantané et capture de leads
 - [x] Ajouter le script dans index.html
-- [ ] Configurer les paramètres de base (couleur, position, etc.) via Tidio dashboard
+- [x] Configurer les paramètres de base (couleur, position, etc.) via code JavaScript
 
 ### 2. Amélioration du Formulaire de Contact
 - [ ] Remplacer la soumission actuelle (email/WhatsApp) par un service backend comme Formspree ou Netlify Forms
@@ -20,9 +20,9 @@
 - [ ] Ajouter gestion des erreurs et confirmation de soumission
 
 ### 3. Galerie de Projets avec Lightbox
-- [ ] Ajouter une lightbox (ex. : Lightbox2 ou Fancybox) pour vue plein écran des images de projets
-- [ ] Permettre le clic sur les images pour afficher détails et navigation
-- [ ] Inclure CSS et JS nécessaires
+- [x] Ajouter une lightbox (ex. : Lightbox2 ou Fancybox) pour vue plein écran des images de projets
+- [x] Permettre le clic sur les images pour afficher détails et navigation
+- [x] Inclure CSS et JS nécessaires
 
 ### 4. Inscription à la Newsletter
 - [ ] Ajouter un formulaire d'abonnement dans une nouvelle section ou footer

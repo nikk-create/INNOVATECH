@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => loader.remove(), 500);
     }, 2000);
 
-    // Formulaire de contact
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
+    // Formulaire de contact amélioré avec Formspree
+    document.getElementById('contactForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
         const name = document.getElementById('name').value;
@@ -128,25 +128,78 @@ document.addEventListener('DOMContentLoaded', function() {
         const method = document.getElementById('method').value;
         const message = document.getElementById('message').value;
 
-        const fullMessage = `Nom: ${name}\nEmail: ${email}\nMessage: ${message}`;
+        // Validation côté client
+        if (!name || !email || !message) {
+            alert('Veuillez remplir tous les champs obligatoires.');
+            return;
+        }
 
-        if (method === 'email') {
-            // Ouvrir le client email avec les données pré-remplies
-            const subject = encodeURIComponent('Message de contact depuis le site');
-            const body = encodeURIComponent(fullMessage);
-            window.location.href = `mailto:protechinova@gmail.com?subject=${subject}&body=${body}`;
-        } else if (method === 'whatsapp') {
-            // Ouvrir WhatsApp avec le message pré-rempli
-            const whatsappMessage = encodeURIComponent(fullMessage);
-            window.open(`https://wa.me/2290159888703?text=${whatsappMessage}`, '_blank');
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('method', method);
+        formData.append('message', message);
+
+        try {
+            const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', { // Remplacez YOUR_FORM_ID par votre ID Formspree
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                alert('Merci pour votre message ! Nous vous contacterons bientôt.');
+                document.getElementById('contactForm').reset();
+            } else {
+                throw new Error('Erreur lors de l\'envoi');
+            }
+        } catch (error) {
+            alert('Une erreur s\'est produite. Veuillez réessayer ou nous contacter directement.');
+            console.error('Erreur:', error);
         }
     });
 
-    // Formulaire newsletter
-    document.getElementById('newsletterForm').addEventListener('submit', function(event) {
+    // Formulaire newsletter avec Mailchimp
+    document.getElementById('newsletterForm').addEventListener('submit', async function(event) {
         event.preventDefault();
+
         const email = document.getElementById('newsletterEmail').value;
-        alert(`Merci de vous être inscrit avec ${email}! Nous vous tiendrons informé de nos dernières actualités.`);
-        document.getElementById('newsletterForm').reset();
+
+        // Validation côté client
+        if (!email) {
+            alert('Veuillez entrer une adresse email valide.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('EMAIL', email);
+
+        try {
+            const response = await fetch('https://YOUR_MAILCHIMP_URL', { // Remplacez par votre URL Mailchimp
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Pour éviter les erreurs CORS
+            });
+
+            alert('Merci de vous être inscrit ! Vérifiez votre email pour confirmer.');
+            document.getElementById('newsletterForm').reset();
+        } catch (error) {
+            alert('Une erreur s\'est produite. Veuillez réessayer.');
+            console.error('Erreur:', error);
+        }
     });
+
+    // Configuration du chat Tidio
+    function configureTidio() {
+        if (typeof tidioChatApi !== 'undefined') {
+            tidioChatApi.setColorPalette('#FF6B35'); // Couleur principale du site
+            tidioChatApi.setPosition('bottom_right'); // Position par défaut
+            // Autres paramètres possibles : tidioChatApi.hide(); pour masquer sur certaines pages, etc.
+        } else {
+            setTimeout(configureTidio, 1000); // Réessayer si pas chargé
+        }
+    }
+    configureTidio();
 });

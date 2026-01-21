@@ -273,6 +273,10 @@
     <!-- Three.js pour l'animation 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
+    <!-- Lightbox2 pour la galerie -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
     <!-- Tidio Chat Integration -->
     <script src="//code.tidio.co/abcdefghijklmnop1234567890.js" async></script>
 </head>
@@ -363,7 +367,9 @@
             <div class="flip-card" data-category="e-commerce" onclick="toggleFlip(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="image/skinversité.jpg" alt="Genskin" class="project-img">
+                        <a href="image/skinversité.jpg" data-lightbox="portfolio" data-title="Genskin – Soins de la peau innovants">
+                            <img src="image/skinversité.jpg" alt="Genskin" class="project-img">
+                        </a>
                         <h3>🌿 Genskin – Soins de la peau innovants</h3>
                         <div class="tech-icons">
                             <i class="fab fa-html5" title="HTML5"></i>
@@ -401,7 +407,9 @@
             <div class="flip-card" data-category="outils" onclick="toggleFlip(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="image/startup.jpg" alt="Startup Planner" class="project-img">
+                        <a href="image/startup.jpg" data-lightbox="portfolio" data-title="Startup Planner">
+                            <img src="image/startup.jpg" alt="Startup Planner" class="project-img">
+                        </a>
                         <h3>🔹 Startup Planner</h3>
                         <div class="tech-icons">
                             <i class="fab fa-html5" title="HTML5"></i>
@@ -420,7 +428,9 @@
             <div class="flip-card" data-category="jeux" onclick="toggleFlip(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="image/skyracer.jpg" alt="SkyRacer" class="project-img">
+                        <a href="image/skyracer.jpg" data-lightbox="portfolio" data-title="SkyRacer">
+                            <img src="image/skyracer.jpg" alt="SkyRacer" class="project-img">
+                        </a>
                         <h3>🕹️ SkyRacer</h3>
                         <div class="tech-icons">
                             <i class="fab fa-html5" title="HTML5"></i>
