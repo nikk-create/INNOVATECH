@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="InnovaTech : Agence spécialisée en création de sites web modernes, design, e-commerce et stratégies digitales au Bénin.">
+  <meta name="keywords" content="création site web, design digital, e-commerce, optimisation digitale, InnovaTech, Bénin">
+  <title>InnovaTech – Innovation & Technologies Digitales</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* ─── VARIABLES & RESET ─── */
+    :root {
+      --cyan: #00FFFF;
+      --orange: #FF6B35;
+      --orange2: #FF8C42;
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #1a1a24;
+      --card: #16161e;
+      --border: rgba(0,255,255,0.15);
+      --text: #e8e8f0;
+      --muted: #8888a0;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --shadow-cyan: 0 0 30px rgba(0,255,255,0.15);
+      --shadow-orange: 0 0 30px rgba(255,107,53,0.2);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; }
+
+    a { text-decoration: none; color: inherit; transition: color 0.3s; }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 100px 0; }
+
+    section.reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    section.reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 0;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    nav .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--cyan);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 4px;
+    }
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-family: var(--font-head);
+      transition: all 0.3s;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--cyan);
+      color: #000;
+      border-color: var(--cyan);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-orange);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(10,10,15,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .mobile-menu a:hover { color: var(--cyan); }
+    .mobile-menu .close-mobile {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,255,255,0.08);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: var(--cyan);
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.6); }
+    }
+    #hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    #hero h1 .accent { color: var(--cyan); }
+    #hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-outline {
+      padding: 10px 24px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.88rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      transition: all 0.3s;
+      background: transparent;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      z-index: 1;
+      animation: bounce-scroll 2s infinite;
+    }
+    @keyframes bounce-scroll {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── STATS ─── */
+    #stats {
+      padding: 60px 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 32px 20px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-number .suffix { color: var(--orange); }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ─── SECTION HEADERS ─── */
+    .section-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--orange);
+      font-family: var(--font-head);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .section-title .accent { color: var(--cyan); }
+    .section-sub {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 1rem;
+    }
+    .section-header { margin-bottom: 60px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-sub { margin: 0 auto; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-imgs {
+      position: relative;
+      height: 460px;
+    }
+    .about-img-main {
+      position: absolute;
+      top: 0; left: 0;
+      width: 75%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .about-img-sec {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 60%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 2px solid var(--cyan);
+    }
+    .about-badge-float {
+      position: absolute;
+      bottom: 60px; left: 55%;
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 12px 18px;
+      border-radius: 12px;
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 20px; }
+    .about-list {
+      list-style: none;
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .about-list li::before {
+      content: '▸';
+      color: var(--cyan);
+      font-size: 1rem;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--bg); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--orange));
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0,255,255,0.3);
+      box-shadow: var(--shadow-cyan);
+    }
+    .service-icon {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .service-card h3 {
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .service-card p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ─── PROCESS TIMELINE ─── */
+    #process { background: var(--bg2); }
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cyan), var(--orange), transparent);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 60px;
+      margin-bottom: 60px;
+      align-items: flex-start;
+      position: relative;
+    }
+    .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+    .timeline-item:nth-child(even) .timeline-content { text-align: right; }
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 44px;
+      background: var(--bg2);
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--cyan);
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .timeline-content {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.3s;
+    }
+    .timeline-content:hover { border-color: rgba(0,255,255,0.3); }
+    .timeline-content h3 { color: var(--cyan); margin-bottom: 8px; font-size: 1.05rem; }
+    .timeline-content p { color: var(--muted); font-size: 0.9rem; }
+    .timeline-spacer { flex: 1; }
+
+    /* ─── PORTFOLIO ─── */
+    #portfolio { background: var(--bg); }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: var(--font-head);
+      transition: all 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--cyan);
+      color: #000;
+      border-color: var(--cyan);
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .portfolio-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,255,255,0.35);
+      box-shadow: var(--shadow-cyan);
+    }
+    .portfolio-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+    }
+    .portfolio-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .portfolio-card:hover .portfolio-img-wrap img { transform: scale(1.05); }
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-body { padding: 24px; }
+    .portfolio-cat {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .portfolio-body h3 { color: #fff; font-size: 1rem; margin-bottom: 10px; }
+    .portfolio-body p { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .tech-tag {
+      background: rgba(0,255,255,0.08);
+      border: 1px solid rgba(0,255,255,0.2);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--cyan);
+      font-family: var(--font-head);
+      font-weight: 600;
+      transition: gap 0.3s;
+    }
+    .portfolio-link:hover { gap: 10px; }
+
+    /* ─── PRICING ─── */
+    #pricing { background: var(--bg2); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card.popular {
+      border-color: var(--cyan);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-cyan);
+    }
+    .pricing-card:hover { transform: translateY(-6px); }
+    .pricing-card.popular:hover { transform: translateY(-14px); }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cyan);
+      color: #000;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 4px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .pricing-name {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+    .pricing-price {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .pricing-currency {
+      font-size: 1.2rem;
+      vertical-align: super;
+      color: var(--muted);
+    }
+    .pricing-period {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 32px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .pricing-features li i {
+      color: var(--cyan);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .pricing-features li.disabled { opacity: 0.4; }
+    .pricing-features li.disabled i { color: var(--muted); }
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials { background: var(--bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(0,255,255,0.3); }
+    .testimonial-card::before {
+      content: '"';
+      font-family: Georgia, serif;
+      font-size: 5rem;
+      color: var(--cyan);
+      opacity: 0.2;
+      position: absolute;
+      top: 10px; left: 20px;
+      line-height: 1;
+    }
+    .testimonial-card p {
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.92rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--orange));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      color: #000;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .author-info strong { display: block; color: #fff; font-size: 0.9rem; }
+    .author-info span { color: var(--muted); font-size: 0.78rem; }
+    .stars { color: var(--orange); font-size: 0.8rem; margin-bottom: 4px; }
+
+    /* ─── WHY US ─── */
+    #why-us { background: var(--bg2); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 24px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .why-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,107,53,0.35);
+    }
+    .why-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .why-card h3 { color: var(--orange); margin-bottom: 10px; font-size: 1rem; }
+    .why-card p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ─── BLOG ─── */
+    #blog { background: var(--bg); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .blog-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0,255,255,0.3);
+    }
+    .blog-img {
+      width: 100%; height: 180px;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .blog-card:hover .blog-img { transform: scale(1.04); }
+    .blog-body { padding: 24px; }
+    .blog-tag {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+    .blog-body h3 { color: #fff; font-size: 0.95rem; margin-bottom: 10px; line-height: 1.4; }
+    .blog-body p { color: var(--muted); font-size: 0.84rem; margin-bottom: 16px; }
+    .blog-link {
+      font-size: 0.82rem;
+      color: var(--orange);
+      font-family: var(--font-head);
+      font-weight: 600;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--bg2); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-info h3 { color: #fff; font-size: 1.2rem; margin-bottom: 24px; }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-detail-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0,255,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .contact-detail-text strong { display: block; color: #fff; font-size: 0.88rem; }
+    .contact-detail-text a { color: var(--muted); font-size: 0.85rem; transition: color 0.3s; }
+    .contact-detail-text a:hover { color: var(--cyan); }
+
+    .contact-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      transition: border-color 0.3s;
+      outline: none;
+    }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--cyan);
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+    }
+
+    /* ─── NEWSLETTER ─── */
+    #newsletter {
+      background: linear-gradient(135deg, rgba(0,255,255,0.05), rgba(255,107,53,0.05));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 70px 0;
+    }
+    .newsletter-inner {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .newsletter-inner h2 { font-size: 2rem; color: #fff; margin-bottom: 12px; }
+    .newsletter-inner p { color: var(--muted); margin-bottom: 32px; }
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 13px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .newsletter-form input:focus { border-color: var(--cyan); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #000;
+      padding: 60px 0 24px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { font-size: 1.4rem; margin-bottom: 14px; display: block; }
+    .footer-brand p { color: var(--muted); font-size: 0.88rem; max-width: 260px; line-height: 1.7; }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    .social-btn:hover {
+      background: var(--cyan);
+      color: #000;
+      border-color: var(--cyan);
+    }
+    .footer-col h4 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { color: var(--muted); font-size: 0.88rem; transition: color 0.3s; }
+    .footer-col ul li a:hover { color: var(--cyan); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p { color: var(--muted); font-size: 0.82rem; }
+
+    /* ─── FLOATING BUTTONS ─── */
+    #whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 54px; height: 54px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      z-index: 998;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    #whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37,211,102,0.6);
+    }
+    .wa-tooltip {
+      position: absolute;
+      left: 68px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.8rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #whatsapp-float:hover .wa-tooltip { opacity: 1; }
+
+    #back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 46px; height: 46px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--cyan);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 998;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+    }
+    #back-to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #back-to-top:hover {
+      background: var(--cyan);
+      color: #000;
+    }
+
+    /* ─── RESPONSIVE ─── */
+
+    /* Tablet large */
+    @media (max-width: 1024px) {
+      .container { padding: 0 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-imgs { height: 300px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
+      .pricing-card.popular { transform: none; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Tablet / grand mobile */
+    @media (max-width: 768px) {
+      /* Layout global */
+      section { padding: 60px 0; }
+      .container { padding: 0 16px; }
+
+      /* Nav */
+      .nav-links { display: none !important; }
+      .nav-right { display: none !important; }
+      .hamburger { display: flex; }
+      .nav-inner { padding: 16px; }
+
+      /* Hero */
+      #hero h1 { font-size: 1.9rem; }
+      #hero p { font-size: 0.95rem; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+      .hero-badge { font-size: 0.72rem; }
+
+      /* Stats */
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 24px 12px;
+      }
+      .stat-number { font-size: 2.2rem; }
+
+      /* About */
+      .about-imgs { height: 240px; }
+      .about-img-main { width: 70%; height: 200px; }
+      .about-img-sec { width: 55%; height: 160px; }
+      .about-badge-float { display: none; }
+      .section-title { font-size: 1.6rem; }
+
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .service-card { padding: 24px 20px; }
+
+      /* Timeline */
+      .timeline::before { left: 18px; top: 0; bottom: 0; }
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        flex-direction: column;
+        padding-left: 54px;
+        gap: 12px;
+      }
+      .timeline-item:nth-child(even) .timeline-content { text-align: left; }
+      .timeline-dot {
+        left: 0;
+        top: 12px;
+        transform: none;
+        width: 36px;
+        height: 36px;
+        font-size: 0.75rem;
+      }
+      .timeline-spacer { display: none; }
+      .timeline-content { padding: 20px; }
+
+      /* Portfolio */
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .filter-bar { gap: 8px; }
+      .filter-btn { padding: 7px 14px; font-size: 0.8rem; }
+
+      /* Pricing */
+      .pricing-grid { grid-template-columns: 1fr; max-width: 100%; }
+      .pricing-card.popular { transform: none; box-shadow: none; }
+      .pricing-card { padding: 28px 20px; }
+      .pricing-price { font-size: 2.2rem; }
+
+      /* Testimonials */
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      /* Why us */
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .why-card { padding: 24px 16px; }
+
+      /* Blog */
+      .blog-grid { grid-template-columns: 1fr; }
+
+      /* Newsletter */
+      .newsletter-form { flex-direction: column; align-items: center; }
+      .newsletter-form input { width: 100%; }
+      .newsletter-form .btn-primary { width: 100%; max-width: 100%; text-align: center; }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-form { padding: 20px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+      /* Floating WA tooltip off on mobile */
+      .wa-tooltip { display: none; }
+    }
+
+    /* Petit mobile */
+    @media (max-width: 480px) {
+      section { padding: 48px 0; }
+      .container { padding: 0 12px; }
+
+      #hero h1 { font-size: 1.55rem; line-height: 1.2; }
+      #hero p { font-size: 0.88rem; }
+      .hero-scroll { display: none; }
+
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-number { font-size: 1.9rem; }
+      .stat-label { font-size: 0.72rem; }
+
+      .section-title { font-size: 1.4rem; }
+      .section-sub { font-size: 0.88rem; }
+
+      .about-imgs { height: 200px; }
+      .about-img-main { height: 160px; }
+      .about-img-sec { height: 120px; }
+
+      .service-card { padding: 20px 16px; }
+
+      .timeline-dot { width: 30px; height: 30px; font-size: 0.7rem; }
+      .timeline-item,
+      .timeline-item:nth-child(even) { padding-left: 44px; }
+      .timeline::before { left: 14px; }
+
+      .portfolio-card { border-radius: 12px; }
+      .portfolio-img-wrap { height: 170px; }
+
+      .pricing-card { padding: 24px 16px; }
+      .pricing-price { font-size: 1.9rem; }
+
+      .why-grid { grid-template-columns: 1fr; }
+
+      .testimonial-card { padding: 24px 18px; }
+      .testimonial-card::before { font-size: 3.5rem; }
+
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-img { height: 160px; }
+
+      .contact-form { padding: 16px; }
+      .form-group input,
+      .form-group textarea,
+      .form-group select { padding: 12px; font-size: 0.88rem; }
+
+      .newsletter-inner h2 { font-size: 1.5rem; }
+
+      footer { padding: 40px 0 20px; }
+      .footer-grid { gap: 24px; }
+      .footer-brand p { font-size: 0.84rem; }
+
+      #whatsapp-float { width: 48px; height: 48px; font-size: 1.2rem; bottom: 16px; left: 16px; }
+      #back-to-top { width: 40px; height: 40px; bottom: 16px; right: 16px; }
+    }
+
+    /* Très petit mobile (320px) */
+    @media (max-width: 360px) {
+      .container { padding: 0 10px; }
+      #hero h1 { font-size: 1.35rem; }
+      .section-title { font-size: 1.25rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .stat-number { font-size: 1.6rem; }
+      .filter-btn { padding: 6px 10px; font-size: 0.75rem; }
+      .pricing-price { font-size: 1.6rem; }
+      .service-card { padding: 16px 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Innova<span>Tech</span></a>
+    <ul class="nav-links">
+      <li><a href="#about" data-translate="nav.about">À Propos</a></li>
+      <li><a href="#services" data-translate="nav.services">Services</a></li>
+      <li><a href="#portfolio" data-translate="nav.portfolio">Portfolio</a></li>
+      <li><a href="#pricing" data-translate="nav.pricing">Tarifs</a></li>
+      <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-fr" onclick="setLanguage('fr')">FR</button>
+        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+      </div>
+      <a href="#contact" class="btn-primary" data-translate="nav.quote">Devis gratuit</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-mobile" id="closeMobile"><i class="fas fa-times"></i></button>
+  <a href="#about" class="mobile-link" data-translate="nav.about">À Propos</a>
+  <a href="#services" class="mobile-link" data-translate="nav.services">Services</a>
+  <a href="#portfolio" class="mobile-link" data-translate="nav.portfolio">Portfolio</a>
+  <a href="#pricing" class="mobile-link" data-translate="nav.pricing">Tarifs</a>
+  <a href="#contact" class="mobile-link" data-translate="nav.contact">Contact</a>
+  <a href="#contact" class="btn-primary mobile-link" data-translate="nav.quote">Devis gratuit</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge" data-translate="hero.badge">Agence digitale au Bénin</div>
+    <h1 data-translate-html="hero.title">Innovation & Technologies <span class="accent">Digitales</span> pour votre présence en ligne</h1>
+    <p data-translate="hero.subtitle">Transformez vos idées en expériences digitales modernes, performantes et mémorables.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary" data-translate="hero.cta1">Démarrer un projet</a>
+      <a href="#portfolio" class="btn-outline" data-translate="hero.cta2">Voir nos réalisations</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span data-translate="hero.scroll">Défiler</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="5">0</span><span class="suffix">+</span></div>
+        <div class="stat-label" data-translate="stats.projects">Projets livrés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="3">0</span><span class="suffix">+</span></div>
+        <div class="stat-label" data-translate="stats.clients">Clients satisfaits</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="2">0</span><span class="suffix">ans</span></div>
+        <div class="stat-label" data-translate="stats.experience">D'expérience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="counter" data-target="100">0</span><span class="suffix">%</span></div>
+        <div class="stat-label" data-translate="stats.responsive">Sites responsives</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── À PROPOS ─── -->
+<section id="about" class="reveal">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-imgs">
+        <img src="image/innov1.jpg" alt="Innovation 1" class="about-img-main">
+        <img src="image/innov2.jpg" alt="Innovation 2" class="about-img-sec">
+        <div class="about-badge-float" data-translate="about.badge">🏆 Startup béninoise</div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag" data-translate="about.tag">À Propos</div>
+        <h2 class="section-title" data-translate="about.title">Nous créons des <span class="accent">expériences digitales</span> qui marquent</h2>
+        <p data-translate="about.p1">Chez InnovaTech, nous allions créativité, design et technologie pour transformer vos idées en solutions digitales raffinées. Chaque projet est pensé avec soin pour offrir une expérience fluide, moderne et professionnelle.</p>
+        <p data-translate="about.p2">Du site web interactif à l'application sur mesure, nous sublimions votre présence digitale avec style et innovation — à la hauteur des meilleures agences mondiales.</p>
+        <ul class="about-list">
+          <li data-translate="about.li1">Design moderne & adapté à votre marque</li>
+          <li data-translate="about.li2">Code propre, rapide et sécurisé</li>
+          <li data-translate="about.li3">Support réactif et suivi personnalisé</li>
+          <li data-translate="about.li4">Livraison dans les délais convenus</li>
+        </ul>
+        <a href="#contact" class="btn-primary" data-translate="about.cta">Travaillons ensemble</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="services.tag">Ce qu'on fait</div>
+      <h2 class="section-title" data-translate="services.title">Nos <span class="accent">Services</span></h2>
+      <p class="section-sub" data-translate="services.sub">Des solutions complètes pour booster votre présence digitale.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <h3 data-translate="services.web.title">Création de sites web</h3>
+        <p data-translate="services.web.desc">Sites sur mesure, modernes et optimisés pour tous les appareils avec les dernières technologies.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎨</span>
+        <h3 data-translate="services.design.title">Design & identité visuelle</h3>
+        <p data-translate="services.design.desc">Logos et interfaces intuitives pour renforcer votre image de marque et vous démarquer.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🛒</span>
+        <h3 data-translate="services.ecom.title">E-commerce</h3>
+        <p data-translate="services.ecom.desc">Plateformes de vente en ligne performantes pour booster vos revenus et simplifier l'expérience d'achat.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📱</span>
+        <h3 data-translate="services.app.title">Applications web</h3>
+        <p data-translate="services.app.desc">Outils et applications interactives sur mesure pour automatiser et simplifier votre activité.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📈</span>
+        <h3 data-translate="services.seo.title">SEO & Stratégie digitale</h3>
+        <p data-translate="services.seo.desc">Référencement naturel et stratégie de contenu pour augmenter votre visibilité en ligne.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚙️</span>
+        <h3 data-translate="services.maintenance.title">Maintenance & support</h3>
+        <p data-translate="services.maintenance.desc">Suivi technique, mises à jour et évolutions pour maintenir votre site performant et sécurisé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESSUS ─── -->
+<section id="process" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="process.tag">Comment on travaille</div>
+      <h2 class="section-title" data-translate="process.title">Notre <span class="accent">Processus</span></h2>
+      <p class="section-sub" data-translate="process.sub">Un process transparent pour des résultats prévisibles et une collaboration sereine.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3 data-translate="process.step1.title">📋 Brief & Découverte</h3>
+          <p data-translate="process.step1.desc">On analyse vos besoins, vos objectifs et votre audience cible pour poser des bases solides.</p>
+        </div>
+        <div class="timeline-dot">01</div>
+        <div class="timeline-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-spacer"></div>
+        <div class="timeline-dot">02</div>
+        <div class="timeline-content">
+          <h3 data-translate="process.step2.title">🎨 Design & Maquettes</h3>
+          <p data-translate="process.step2.desc">Conception des maquettes visuelles pour valider l'identité graphique avant le développement.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <h3 data-translate="process.step3.title">💻 Développement</h3>
+          <p data-translate="process.step3.desc">Intégration du design avec du code propre, optimisé et responsive sur tous les appareils.</p>
+        </div>
+        <div class="timeline-dot">03</div>
+        <div class="timeline-spacer"></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-spacer"></div>
+        <div class="timeline-dot">04</div>
+        <div class="timeline-content">
+          <h3 data-translate="process.step4.title">🚀 Livraison & Suivi</h3>
+          <p data-translate="process.step4.desc">Mise en ligne, formation et suivi post-livraison pour assurer le succès de votre projet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PORTFOLIO ─── -->
+<section id="portfolio" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="portfolio.tag">Nos travaux</div>
+      <h2 class="section-title" data-translate="portfolio.title">Nos <span class="accent">Réalisations</span></h2>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" data-translate="portfolio.all">Tous</button>
+      <button class="filter-btn" data-filter="e-commerce" data-translate="portfolio.ecom">E-commerce</button>
+      <button class="filter-btn" data-filter="coaching" data-translate="portfolio.coaching">Coaching</button>
+      <button class="filter-btn" data-filter="outils" data-translate="portfolio.tools">Outils</button>
+      <button class="filter-btn" data-filter="jeux" data-translate="portfolio.games">Jeux</button>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card" data-category="e-commerce">
+        <div class="portfolio-img-wrap">
+          <img src="image/skinversité.jpg" alt="Genskin" loading="lazy">
+          <div class="portfolio-overlay">
+            <a href="https://nikk-create.github.io/Genskin/" target="_blank" class="btn-primary">Voir le site →</a>
+          </div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat" data-translate="portfolio.ecom">E-commerce</div>
+          <h3>🌿 Genskin – Soins de la peau</h3>
+          <p data-translate="proj.genskin">Boutique e-commerce de soins naturels avec catalogue produits, tunnel d'achat et interface élégante.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://nikk-create.github.io/Genskin/" target="_blank" class="portfolio-link">Visiter <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-category="coaching">
+        <div class="portfolio-img-wrap">
+          <img src="image/neuroscience.jpg" alt="Lucie International" loading="lazy">
+          <div class="portfolio-overlay">
+            <a href="https://nikk-create.github.io/Lucie-International-Neurologie/" target="_blank" class="btn-primary">Voir le site →</a>
+          </div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat" data-translate="portfolio.coaching">Coaching</div>
+          <h3>🧠 Cabinet Lucie International</h3>
+          <p data-translate="proj.lucie">Cabinet de coaching & neurosciences. Site vitrine professionnel avec prise de rendez-vous.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://nikk-create.github.io/Lucie-International-Neurologie/" target="_blank" class="portfolio-link">Visiter <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-category="outils">
+        <div class="portfolio-img-wrap">
+          <img src="image/startup.jpg" alt="Startup Planner" loading="lazy">
+          <div class="portfolio-overlay">
+            <a href="https://nikk-create.github.io/Startup-Planner/" target="_blank" class="btn-primary">Voir le site →</a>
+          </div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat" data-translate="portfolio.tools">Outil</div>
+          <h3>🔹 Startup Planner</h3>
+          <p data-translate="proj.startup">Plateforme d'aide à la création d'entreprise : structuration du business plan et suivi des étapes.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://nikk-create.github.io/Startup-Planner/" target="_blank" class="portfolio-link">Visiter <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-category="jeux">
+        <div class="portfolio-img-wrap">
+          <img src="image/skyracer.jpg" alt="SkyRacer" loading="lazy">
+          <div class="portfolio-overlay">
+            <a href="https://nikk-create.github.io/SkyRacer/" target="_blank" class="btn-primary">Jouer →</a>
+          </div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat" data-translate="portfolio.games">Jeu</div>
+          <h3>🕹️ SkyRacer</h3>
+          <p data-translate="proj.skyracer">Mini-jeu web dynamique compatible mobile et desktop avec difficulté progressive.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">Canvas API</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://nikk-create.github.io/SkyRacer/" target="_blank" class="portfolio-link">Jouer <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-category="outils">
+        <div class="portfolio-img-wrap">
+          <img src="image/amazone.jpg" alt="StudiiCash-BJ" loading="lazy">
+          <div class="portfolio-overlay">
+            <a href="https://nikk-create.github.io/StudiiCash-BJ/" target="_blank" class="btn-primary">Voir le site →</a>
+          </div>
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-cat" data-translate="portfolio.tools">Outil</div>
+          <h3>📚 StudiiCash-BJ</h3>
+          <p data-translate="proj.studiicash">Plateforme de gestion et productivité pour étudiants béninois : tâches, dépenses et planning.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://nikk-create.github.io/StudiiCash-BJ/" target="_blank" class="portfolio-link">Visiter <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section id="pricing" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="pricing.tag">Nos Tarifs</div>
+      <h2 class="section-title" data-translate="pricing.title">Des formules <span class="accent">transparentes</span></h2>
+      <p class="section-sub" data-translate="pricing.sub">Choisissez la formule adaptée à votre projet. Devis personnalisé disponible.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name" data-translate="pricing.starter.name">Starter</div>
+        <div class="pricing-price"><span class="pricing-currency">À partir de</span><br>80k</div>
+        <div class="pricing-period" data-translate="pricing.starter.period">FCFA · Site vitrine</div>
+        <ul class="pricing-features">
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f1">Site responsive 3-5 pages</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f2">Design personnalisé</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f3">Formulaire de contact</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f4">Hébergement 1 an inclus</span></li>
+          <li class="disabled"><i class="fas fa-times"></i><span data-translate="pricing.f5">E-commerce</span></li>
+          <li class="disabled"><i class="fas fa-times"></i><span data-translate="pricing.f6">SEO avancé</span></li>
+        </ul>
+        <a href="#contact" class="btn-outline form-submit" style="display:block;text-align:center;padding:14px;" data-translate="pricing.cta">Démarrer</a>
+      </div>
+
+      <div class="pricing-card popular">
+        <div class="popular-badge" data-translate="pricing.popular">⭐ Populaire</div>
+        <div class="pricing-name" data-translate="pricing.pro.name">Pro</div>
+        <div class="pricing-price"><span class="pricing-currency">À partir de</span><br>180k</div>
+        <div class="pricing-period" data-translate="pricing.pro.period">FCFA · Site complet</div>
+        <ul class="pricing-features">
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f1">Site responsive 3-5 pages</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f2">Design personnalisé</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f3">Formulaire de contact</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f4">Hébergement 1 an inclus</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f7">Blog ou catalogue produits</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f6">SEO de base optimisé</span></li>
+        </ul>
+        <a href="#contact" class="btn-primary form-submit" style="display:block;text-align:center;padding:14px;" data-translate="pricing.cta">Démarrer</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-name" data-translate="pricing.enterprise.name">Enterprise</div>
+        <div class="pricing-price"><span class="pricing-currency"></span>Sur devis</div>
+        <div class="pricing-period" data-translate="pricing.enterprise.period">Projet sur mesure</div>
+        <ul class="pricing-features">
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f8">Tout du plan Pro</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f5">E-commerce complet</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f9">Application web sur mesure</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f10">Maintenance 6 mois incluse</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f6">SEO avancé</span></li>
+          <li><i class="fas fa-check"></i><span data-translate="pricing.f11">Support prioritaire</span></li>
+        </ul>
+        <a href="#contact" class="btn-outline form-submit" style="display:block;text-align:center;padding:14px;" data-translate="pricing.cta2">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="testi.tag">Ce qu'ils disent</div>
+      <h2 class="section-title" data-translate="testi.title">Nos <span class="accent">Clients</span> témoignent</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p data-translate="testi.t1">"Chez Genskin, nous avions besoin d'un site à la hauteur de notre vision. InnovaTech a su créer quelque chose d'élégant et de performant, exactement comme on l'imaginait."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">GA</div>
+          <div class="author-info">
+            <strong>Gilles Alihonou</strong>
+            <span data-translate="testi.t1role">PDG de Genskin</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p data-translate="testi.t2">"Un site propre, rapide et vraiment beau. L'équipe a été à l'écoute du début à la fin. Je recommande InnovaTech sans hésiter pour tous les entrepreneurs béninois."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ST</div>
+          <div class="author-info">
+            <strong>Sophie T.</strong>
+            <span data-translate="testi.t2role">Utilisatrice & Cliente</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p data-translate="testi.t3">"Le Startup Planner développé par InnovaTech a vraiment changé la façon dont je structure mes projets. Simple, intuitif et efficace. Bravo à toute l'équipe !"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MK</div>
+          <div class="author-info">
+            <strong>Marc K.</strong>
+            <span data-translate="testi.t3role">Entrepreneur, Cotonou</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ─── -->
+<section id="why-us" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag" data-translate="why.tag">Nos engagements</div>
+      <h2 class="section-title" data-translate="why.title">Pourquoi choisir <span class="accent">InnovaTech</span> ?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🔒</span>
+        <h3 data-translate="why.reliability">Fiabilité</h3>
+        <p data-translate="why.reliability.desc">Engagements tenus, délais respectés. Votre confiance est notre priorité.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💡</span>
+        <h3 data-translate="why.creativity">Créativité</h3>
+        <p data-translate="why.creativity.desc">Solutions sur mesure et designs uniques pour des expériences mémorables.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⭐</span>
+        <h3 data-translate="why.satisfaction">Satisfaction</h3>
+        <p data-translate="why.satisfaction.desc">Clients satisfaits, résultats mesurables. On ne livre que ce qui fonctionne.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🚀</span>
+        <h3 data-translate="why.innovation">Innovation</h3>
+        <p data-translate="why.innovation.desc">Toujours à la pointe des technologies pour vous garder compétitif.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BLOG ─── -->
+<section id="blog" class="reveal">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-tag">Blog</div>
+      <h2 class="section-title">Insights & <span class="accent">Ressources</span></h2>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <img src="image/blog1.jpg" alt="Tendances 2025" class="blog-img" loading="lazy">
+        <div class="blog-body">
+          <div class="blog-tag">Développement</div>
+          <h3 data-translate="blog.b1.title">Tendances 2025 en Développement Web</h3>
+          <p data-translate="blog.b1.desc">Frameworks modernes, IA intégrée et designs responsives avancés : ce qui change tout.</p>
+          <a href="#" class="blog-link" data-translate="blog.read">Lire l'article →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="image/blog2.jpg" alt="SEO PME" class="blog-img" loading="lazy">
+        <div class="blog-body">
+          <div class="blog-tag">SEO</div>
+          <h3 data-translate="blog.b2.title">Optimisation SEO pour PME africaines</h3>
+          <p data-translate="blog.b2.desc">Conseils pratiques pour améliorer votre référencement et attirer plus de clients.</p>
+          <a href="#" class="blog-link" data-translate="blog.read">Lire l'article →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="image/blog3.jpg" alt="E-commerce" class="blog-img" loading="lazy">
+        <div class="blog-body">
+          <div class="blog-tag">E-commerce</div>
+          <h3 data-translate="blog.b3.title">Étude de cas : E-commerce réussi</h3>
+          <p data-translate="blog.b3.desc">Comment un site e-commerce a doublé ses ventes grâce à une stratégie digitale ciblée.</p>
+          <a href="#" class="blog-link" data-translate="blog.read">Lire l'article →</a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="image/blog4.jpg" alt="Sécurité Web" class="blog-img" loading="lazy">
+        <div class="blog-body">
+          <div class="blog-tag">Sécurité</div>
+          <h3 data-translate="blog.b4.title">Sécurité Web : l'essentiel à savoir</h3>
+          <p data-translate="blog.b4.desc">Protégez votre site des menaces cyber avec ces bonnes pratiques indispensables.</p>
+          <a href="#" class="blog-link" data-translate="blog.read">Lire l'article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── NEWSLETTER ─── -->
+<section id="newsletter" class="reveal">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="section-tag" style="text-align:center;" data-translate="newsletter.tag">Newsletter</div>
+      <h2 data-translate="newsletter.title">Restez <span style="color:var(--cyan)">informé</span></h2>
+      <p data-translate="newsletter.sub">Recevez nos conseils, tendances et actualités digitales directement dans votre boîte mail.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="votre@email.com" required data-translate-placeholder="newsletter.placeholder">
+        <button type="submit" class="btn-primary" data-translate="newsletter.cta">S'inscrire</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="reveal">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag" data-translate="contact.tag">Travaillons ensemble</div>
+      <h2 class="section-title" data-translate="contact.title">Démarrons votre <span class="accent">projet</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <h3 data-translate="contact.info.title">Nos coordonnées</h3>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <a href="mailto:protechinova@gmail.com">protechinova@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-detail-text">
+            <strong data-translate="contact.phone">Téléphone</strong>
+            <a href="tel:+2290159888703">+229 01 59 88 87 03</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="contact-detail-text">
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/2290159888703" target="_blank" data-translate="contact.wa">Discutez avec nous sur WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-detail-text">
+            <strong data-translate="contact.location">Localisation</strong>
+            <span style="color:var(--muted);font-size:0.85rem;">Cotonou, Bénin 🇧🇯</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-translate="contact.name">Votre nom</label>
+              <input type="text" id="name" name="name" required data-translate-placeholder="contact.name.ph">
+            </div>
+            <div class="form-group">
+              <label data-translate="contact.email">Email</label>
+              <input type="email" id="email" name="email" required data-translate-placeholder="contact.email.ph">
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-translate="contact.subject">Sujet</label>
+            <select id="subject" name="subject">
+              <option data-translate="contact.opt1">Création de site web</option>
+              <option data-translate="contact.opt2">Design & identité visuelle</option>
+              <option data-translate="contact.opt3">E-commerce</option>
+              <option data-translate="contact.opt4">Application web</option>
+              <option data-translate="contact.opt5">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-translate="contact.method">Méthode de contact préférée</label>
+            <select id="method" name="method">
+              <option value="email" data-translate="contact.via.email">Par email</option>
+              <option value="whatsapp" data-translate="contact.via.wa">Par WhatsApp</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-translate="contact.message">Votre message</label>
+            <textarea id="message" name="message" required data-translate-placeholder="contact.message.ph"></textarea>
+          </div>
+          <button type="submit" class="btn-primary form-submit" data-translate="contact.send">Envoyer le message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="nav-logo">Innova<span style="color:var(--orange)">Tech</span></span>
+        <p data-translate="footer.desc">Agence digitale basée au Bénin. Nous créons des expériences web modernes et performantes pour faire grandir votre activité.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://wa.me/2290159888703" class="social-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-translate="footer.services">Services</h4>
+        <ul>
+          <li><a href="#services" data-translate="services.web.title">Création de sites web</a></li>
+          <li><a href="#services" data-translate="services.design.title">Design & identité visuelle</a></li>
+          <li><a href="#services" data-translate="services.ecom.title">E-commerce</a></li>
+          <li><a href="#services" data-translate="services.maintenance.title">Maintenance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-translate="footer.company">Entreprise</h4>
+        <ul>
+          <li><a href="#about" data-translate="nav.about">À propos</a></li>
+          <li><a href="#portfolio" data-translate="nav.portfolio">Portfolio</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-translate="footer.contact">Contact</h4>
+        <ul>
+          <li><a href="mailto:protechinova@gmail.com">protechinova@gmail.com</a></li>
+          <li><a href="tel:+2290159888703">+229 01 59 88 87 03</a></li>
+          <li><a href="https://wa.me/2290159888703">WhatsApp</a></li>
+          <li><span style="color:var(--muted)">Cotonou, Bénin 🇧🇯</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-translate="footer.copy">&copy; 2025 InnovaTech. Tous droits réservés.</p>
+      <p style="color:var(--muted);font-size:0.78rem;" data-translate="footer.made">Fait avec ❤️ au Bénin</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── FLOATING BUTTONS ─── -->
+<a href="https://wa.me/2290159888703" id="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-tooltip" data-translate="wa.tooltip">Discutez avec nous !</span>
+</a>
+<button id="back-to-top" aria-label="Retour en haut"><i class="fas fa-arrow-up"></i></button>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+/* ── TRANSLATIONS ── */
+const t = {
+  fr: {
+    "nav.about":"À Propos","nav.services":"Services","nav.portfolio":"Portfolio",
+    "nav.pricing":"Tarifs","nav.contact":"Contact","nav.quote":"Devis gratuit",
+    "hero.badge":"Agence digitale au Bénin",
+    "hero.title":'Innovation & Technologies <span class="accent">Digitales</span> pour votre présence en ligne',
+    "hero.subtitle":"Transformez vos idées en expériences digitales modernes, performantes et mémorables.",
+    "hero.cta1":"Démarrer un projet","hero.cta2":"Voir nos réalisations","hero.scroll":"Défiler",
+    "stats.projects":"Projets livrés","stats.clients":"Clients satisfaits",
+    "stats.experience":"D'expérience","stats.responsive":"Sites responsives",
+    "about.tag":"À Propos","about.badge":"🏆 Startup béninoise",
+    "about.title":'Nous créons des <span class="accent">expériences digitales</span> qui marquent',
+    "about.p1":"Chez InnovaTech, nous allions créativité, design et technologie pour transformer vos idées en solutions digitales raffinées.",
+    "about.p2":"Du site web interactif à l'application sur mesure, nous sublimions votre présence digitale avec style et innovation.",
+    "about.li1":"Design moderne & adapté à votre marque","about.li2":"Code propre, rapide et sécurisé",
+    "about.li3":"Support réactif et suivi personnalisé","about.li4":"Livraison dans les délais convenus",
+    "about.cta":"Travaillons ensemble",
+    "services.tag":"Ce qu'on fait","services.title":'Nos <span class="accent">Services</span>',
+    "services.sub":"Des solutions complètes pour booster votre présence digitale.",
+    "services.web.title":"Création de sites web","services.web.desc":"Sites sur mesure, modernes et optimisés pour tous les appareils.",
+    "services.design.title":"Design & identité visuelle","services.design.desc":"Logos et interfaces intuitives pour renforcer votre image de marque.",
+    "services.ecom.title":"E-commerce","services.ecom.desc":"Plateformes de vente en ligne performantes pour booster vos revenus.",
+    "services.app.title":"Applications web","services.app.desc":"Outils et applications interactives sur mesure pour votre activité.",
+    "services.seo.title":"SEO & Stratégie digitale","services.seo.desc":"Référencement naturel pour augmenter votre visibilité en ligne.",
+    "services.maintenance.title":"Maintenance & support","services.maintenance.desc":"Suivi technique et mises à jour pour maintenir votre site performant.",
+    "process.tag":"Comment on travaille","process.title":'Notre <span class="accent">Processus</span>',
+    "process.sub":"Un process transparent pour des résultats prévisibles.",
+    "process.step1.title":"📋 Brief & Découverte","process.step1.desc":"On analyse vos besoins, vos objectifs et votre audience cible.",
+    "process.step2.title":"🎨 Design & Maquettes","process.step2.desc":"Conception des maquettes visuelles avant le développement.",
+    "process.step3.title":"💻 Développement","process.step3.desc":"Intégration avec du code propre, optimisé et responsive.",
+    "process.step4.title":"🚀 Livraison & Suivi","process.step4.desc":"Mise en ligne, formation et suivi post-livraison.",
+    "portfolio.tag":"Nos travaux","portfolio.title":'Nos <span class="accent">Réalisations</span>',
+    "portfolio.all":"Tous","portfolio.ecom":"E-commerce","portfolio.coaching":"Coaching",
+    "portfolio.tools":"Outils","portfolio.games":"Jeux",
+    "proj.genskin":"Boutique e-commerce de soins naturels avec catalogue et tunnel d'achat.",
+    "proj.lucie":"Cabinet de coaching & neurosciences. Site vitrine professionnel.",
+    "proj.startup":"Plateforme d'aide à la création d'entreprise et structuration.",
+    "proj.skyracer":"Mini-jeu web dynamique compatible mobile et desktop.",
+    "proj.studiicash":"Plateforme de productivité pour étudiants béninois.",
+    "pricing.tag":"Nos Tarifs","pricing.title":'Des formules <span class="accent">transparentes</span>',
+    "pricing.sub":"Choisissez la formule adaptée. Devis personnalisé disponible.",
+    "pricing.starter.name":"Starter","pricing.starter.period":"FCFA · Site vitrine",
+    "pricing.pro.name":"Pro","pricing.pro.period":"FCFA · Site complet",
+    "pricing.popular":"⭐ Populaire",
+    "pricing.enterprise.name":"Enterprise","pricing.enterprise.period":"Projet sur mesure",
+    "pricing.f1":"Site responsive 3-5 pages","pricing.f2":"Design personnalisé",
+    "pricing.f3":"Formulaire de contact","pricing.f4":"Hébergement 1 an inclus",
+    "pricing.f5":"E-commerce","pricing.f6":"SEO avancé","pricing.f7":"Blog ou catalogue produits",
+    "pricing.f8":"Tout du plan Pro","pricing.f9":"Application web sur mesure",
+    "pricing.f10":"Maintenance 6 mois incluse","pricing.f11":"Support prioritaire",
+    "pricing.cta":"Démarrer","pricing.cta2":"Nous contacter",
+    "testi.tag":"Ce qu'ils disent","testi.title":'Nos <span class="accent">Clients</span> témoignent',
+    "testi.t1":"\"InnovaTech a su créer quelque chose d'élégant et de performant, exactement comme on l'imaginait.\"",
+    "testi.t1role":"PDG de Genskin",
+    "testi.t2":"\"Un site propre, rapide et vraiment beau. L'équipe a été à l'écoute du début à la fin.\"",
+    "testi.t2role":"Utilisatrice & Cliente",
+    "testi.t3":"\"Le Startup Planner a changé la façon dont je structure mes projets. Simple, intuitif et efficace.\"",
+    "testi.t3role":"Entrepreneur, Cotonou",
+    "why.tag":"Nos engagements","why.title":'Pourquoi choisir <span class="accent">InnovaTech</span> ?',
+    "why.reliability":"Fiabilité","why.reliability.desc":"Engagements tenus, délais respectés. Votre confiance est notre priorité.",
+    "why.creativity":"Créativité","why.creativity.desc":"Solutions sur mesure et designs uniques pour des expériences mémorables.",
+    "why.satisfaction":"Satisfaction","why.satisfaction.desc":"Clients satisfaits, résultats mesurables.",
+    "why.innovation":"Innovation","why.innovation.desc":"Toujours à la pointe des technologies pour vous garder compétitif.",
+    "blog.b1.title":"Tendances 2025 en Développement Web",
+    "blog.b1.desc":"Frameworks modernes, IA intégrée et designs responsives avancés.",
+    "blog.b2.title":"Optimisation SEO pour PME africaines",
+    "blog.b2.desc":"Conseils pratiques pour améliorer votre référencement.",
+    "blog.b3.title":"Étude de cas : E-commerce réussi",
+    "blog.b3.desc":"Comment un e-commerce a doublé ses ventes grâce au digital.",
+    "blog.b4.title":"Sécurité Web : l'essentiel à savoir",
+    "blog.b4.desc":"Protégez votre site des menaces cyber.",
+    "blog.read":"Lire l'article →",
+    "newsletter.tag":"Newsletter","newsletter.title":'Restez <span style="color:var(--cyan)">informé</span>',
+    "newsletter.sub":"Recevez nos conseils et actualités digitales dans votre boîte mail.",
+    "newsletter.placeholder":"votre@email.com","newsletter.cta":"S'inscrire",
+    "contact.tag":"Travaillons ensemble","contact.title":'Démarrons votre <span class="accent">projet</span>',
+    "contact.info.title":"Nos coordonnées","contact.phone":"Téléphone",
+    "contact.wa":"Discutez avec nous sur WhatsApp","contact.location":"Localisation",
+    "contact.name":"Votre nom","contact.name.ph":"Jean Dupont",
+    "contact.email":"Email","contact.email.ph":"jean@email.com",
+    "contact.subject":"Sujet du projet",
+    "contact.opt1":"Création de site web","contact.opt2":"Design & identité visuelle",
+    "contact.opt3":"E-commerce","contact.opt4":"Application web","contact.opt5":"Autre",
+    "contact.method":"Méthode de contact préférée",
+    "contact.via.email":"Par email","contact.via.wa":"Par WhatsApp",
+    "contact.message":"Votre message","contact.message.ph":"Décrivez votre projet...",
+    "contact.send":"Envoyer le message",
+    "footer.desc":"Agence digitale basée au Bénin. Nous créons des expériences web modernes pour faire grandir votre activité.",
+    "footer.services":"Services","footer.company":"Entreprise","footer.contact":"Contact",
+    "footer.copy":"© 2025 InnovaTech. Tous droits réservés.","footer.made":"Fait avec ❤️ au Bénin",
+    "wa.tooltip":"Discutez avec nous !"
+  },
+  en: {
+    "nav.about":"About","nav.services":"Services","nav.portfolio":"Portfolio",
+    "nav.pricing":"Pricing","nav.contact":"Contact","nav.quote":"Free Quote",
+    "hero.badge":"Digital Agency in Benin",
+    "hero.title":'Innovation & <span class="accent">Digital Technologies</span> for your online presence',
+    "hero.subtitle":"Transform your ideas into modern, high-performing and memorable digital experiences.",
+    "hero.cta1":"Start a project","hero.cta2":"View our work","hero.scroll":"Scroll",
+    "stats.projects":"Projects delivered","stats.clients":"Happy clients",
+    "stats.experience":"Years of experience","stats.responsive":"Responsive sites",
+    "about.tag":"About","about.badge":"🏆 Beninese startup",
+    "about.title":'We create <span class="accent">digital experiences</span> that leave a mark',
+    "about.p1":"At InnovaTech, we combine creativity, design and technology to transform your ideas into refined digital solutions.",
+    "about.p2":"From interactive websites to custom applications, we elevate your digital presence with style and innovation.",
+    "about.li1":"Modern design tailored to your brand","about.li2":"Clean, fast and secure code",
+    "about.li3":"Responsive support and personalized follow-up","about.li4":"Delivery within agreed deadlines",
+    "about.cta":"Let's work together",
+    "services.tag":"What we do","services.title":'Our <span class="accent">Services</span>',
+    "services.sub":"Complete solutions to boost your digital presence.",
+    "services.web.title":"Website creation","services.web.desc":"Custom, modern websites optimized for all devices.",
+    "services.design.title":"Design & visual identity","services.design.desc":"Logos and intuitive interfaces to strengthen your brand image.",
+    "services.ecom.title":"E-commerce","services.ecom.desc":"High-performing online stores to boost your revenue.",
+    "services.app.title":"Web applications","services.app.desc":"Custom interactive tools and apps for your business.",
+    "services.seo.title":"SEO & Digital strategy","services.seo.desc":"Natural referencing to increase your online visibility.",
+    "services.maintenance.title":"Maintenance & support","services.maintenance.desc":"Technical follow-up and updates to keep your site performing.",
+    "process.tag":"How we work","process.title":'Our <span class="accent">Process</span>',
+    "process.sub":"A transparent process for predictable results.",
+    "process.step1.title":"📋 Brief & Discovery","process.step1.desc":"We analyze your needs, objectives and target audience.",
+    "process.step2.title":"🎨 Design & Mockups","process.step2.desc":"Visual mockup creation to validate the graphic identity.",
+    "process.step3.title":"💻 Development","process.step3.desc":"Integration with clean, optimized and responsive code.",
+    "process.step4.title":"🚀 Delivery & Follow-up","process.step4.desc":"Launch, training and post-delivery support.",
+    "portfolio.tag":"Our work","portfolio.title":'Our <span class="accent">Projects</span>',
+    "portfolio.all":"All","portfolio.ecom":"E-commerce","portfolio.coaching":"Coaching",
+    "portfolio.tools":"Tools","portfolio.games":"Games",
+    "proj.genskin":"Natural skincare e-commerce store with product catalog and checkout.",
+    "proj.lucie":"Coaching & neuroscience cabinet. Professional showcase website.",
+    "proj.startup":"Business creation support platform and business plan structuring.",
+    "proj.skyracer":"Dynamic web mini-game compatible with mobile and desktop.",
+    "proj.studiicash":"Productivity platform for Beninese students.",
+    "pricing.tag":"Our Pricing","pricing.title":'<span class="accent">Transparent</span> pricing plans',
+    "pricing.sub":"Choose the right plan for your project. Custom quotes available.",
+    "pricing.starter.name":"Starter","pricing.starter.period":"FCFA · Showcase website",
+    "pricing.pro.name":"Pro","pricing.pro.period":"FCFA · Full website",
+    "pricing.popular":"⭐ Popular",
+    "pricing.enterprise.name":"Enterprise","pricing.enterprise.period":"Custom project",
+    "pricing.f1":"Responsive website 3-5 pages","pricing.f2":"Custom design",
+    "pricing.f3":"Contact form","pricing.f4":"1 year hosting included",
+    "pricing.f5":"E-commerce","pricing.f6":"Advanced SEO","pricing.f7":"Blog or product catalog",
+    "pricing.f8":"Everything in Pro plan","pricing.f9":"Custom web application",
+    "pricing.f10":"6 months maintenance included","pricing.f11":"Priority support",
+    "pricing.cta":"Get started","pricing.cta2":"Contact us",
+    "testi.tag":"What they say","testi.title":'Our <span class="accent">Clients</span> speak',
+    "testi.t1":"\"InnovaTech created something elegant and high-performing, exactly as we imagined it.\"",
+    "testi.t1role":"CEO of Genskin",
+    "testi.t2":"\"A clean, fast and beautiful website. The team was attentive from start to finish.\"",
+    "testi.t2role":"User & Client",
+    "testi.t3":"\"The Startup Planner changed how I structure my projects. Simple, intuitive and effective.\"",
+    "testi.t3role":"Entrepreneur, Cotonou",
+    "why.tag":"Our commitments","why.title":'Why choose <span class="accent">InnovaTech</span>?',
+    "why.reliability":"Reliability","why.reliability.desc":"Commitments kept, deadlines respected. Your trust is our priority.",
+    "why.creativity":"Creativity","why.creativity.desc":"Custom solutions and unique designs for memorable experiences.",
+    "why.satisfaction":"Satisfaction","why.satisfaction.desc":"Happy clients, measurable results.",
+    "why.innovation":"Innovation","why.innovation.desc":"Always at the cutting edge of technology to keep you competitive.",
+    "blog.b1.title":"2025 Web Development Trends",
+    "blog.b1.desc":"Modern frameworks, integrated AI and advanced responsive designs.",
+    "blog.b2.title":"SEO Optimization for African SMEs",
+    "blog.b2.desc":"Practical tips to improve your search engine ranking.",
+    "blog.b3.title":"Case Study: Successful E-commerce",
+    "blog.b3.desc":"How an e-commerce doubled its sales through digital strategy.",
+    "blog.b4.title":"Web Security: the essentials",
+    "blog.b4.desc":"Protect your site from cyber threats.",
+    "blog.read":"Read article →",
+    "newsletter.tag":"Newsletter","newsletter.title":'Stay <span style="color:var(--cyan)">informed</span>',
+    "newsletter.sub":"Get our tips and digital news directly in your inbox.",
+    "newsletter.placeholder":"your@email.com","newsletter.cta":"Subscribe",
+    "contact.tag":"Let's work together","contact.title":'Let\'s start your <span class="accent">project</span>',
+    "contact.info.title":"Our contact details","contact.phone":"Phone",
+    "contact.wa":"Chat with us on WhatsApp","contact.location":"Location",
+    "contact.name":"Your name","contact.name.ph":"John Smith",
+    "contact.email":"Email","contact.email.ph":"john@email.com",
+    "contact.subject":"Project subject",
+    "contact.opt1":"Website creation","contact.opt2":"Design & visual identity",
+    "contact.opt3":"E-commerce","contact.opt4":"Web application","contact.opt5":"Other",
+    "contact.method":"Preferred contact method",
+    "contact.via.email":"By email","contact.via.wa":"By WhatsApp",
+    "contact.message":"Your message","contact.message.ph":"Describe your project...",
+    "contact.send":"Send message",
+    "footer.desc":"Digital agency based in Benin. We create modern web experiences to grow your business.",
+    "footer.services":"Services","footer.company":"Company","footer.contact":"Contact",
+    "footer.copy":"© 2025 InnovaTech. All rights reserved.","footer.made":"Made with ❤️ in Benin",
+    "wa.tooltip":"Chat with us!"
+  }
+};
+
+let lang = localStorage.getItem('it-lang') || 'fr';
+
+function setLanguage(l) {
+  lang = l;
+  localStorage.setItem('it-lang', l);
+  document.getElementById('btn-fr').classList.toggle('active', l === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.querySelectorAll('[data-translate]').forEach(el => {
+    const key = el.getAttribute('data-translate');
+    if (t[l][key] !== undefined) el.textContent = t[l][key];
+  });
+  document.querySelectorAll('[data-translate-html]').forEach(el => {
+    const key = el.getAttribute('data-translate-html');
+    if (t[l][key] !== undefined) el.innerHTML = t[l][key];
+  });
+  document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-translate-placeholder');
+    if (t[l][key] !== undefined) el.placeholder = t[l][key];
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => setLanguage(lang));
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
+});
+
+/* ── HAMBURGER ── */
+const ham = document.getElementById('hamburger');
+const mob = document.getElementById('mobileMenu');
+const closeM = document.getElementById('closeMobile');
+
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+});
+closeM.addEventListener('click', () => {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.querySelectorAll('.mobile-link').forEach(l => {
+  l.addEventListener('click', () => {
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ── BACK TO TOP ── */
+document.getElementById('back-to-top').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ── REVEAL SECTIONS ── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(s => revealObs.observe(s));
+
+/* ── COUNTER ANIMATION ── */
+function animateCounter(el) {
+  const target = parseInt(el.getAttribute('data-target'));
+  const dur = 1800;
+  const step = target / (dur / 16);
+  let current = 0;
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      el.textContent = target;
+      clearInterval(interval);
+    } else {
+      el.textContent = Math.floor(current);
+    }
+  }, 16);
+}
+
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(animateCounter);
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const statsSection = document.getElementById('stats');
+if (statsSection) statsObs.observe(statsSection);
+
+/* ── PORTFOLIO FILTER ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.getAttribute('data-filter');
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const show = filter === 'all' || card.getAttribute('data-category') === filter;
+      card.style.display = show ? 'block' : 'none';
+      card.style.animation = show ? 'fadeIn 0.4s ease' : '';
+    });
+  });
+});
+
+/* ── CONTACT FORM ── */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value;
+  const method = document.getElementById('method').value;
+  const message = document.getElementById('message').value.trim();
+
+  if (!name || !email || !message) {
+    alert('Veuillez remplir tous les champs obligatoires.');
+    return;
+  }
+
+  const fullMsg = `Nom: ${name}\nEmail: ${email}\nSujet: ${subject}\nMessage: ${message}`;
+
+  if (method === 'whatsapp') {
+    window.open(`https://wa.me/2290159888703?text=${encodeURIComponent(fullMsg)}`, '_blank');
+  } else {
+    const sub = encodeURIComponent(`[InnovaTech] ${subject}`);
+    const body = encodeURIComponent(fullMsg);
+    window.location.href = `mailto:protechinova@gmail.com?subject=${sub}&body=${body}`;
+  }
+  this.reset();
+});
+
+/* ── NEWSLETTER FORM ── */
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('newsletterEmail').value.trim();
+  if (email) {
+    alert(lang === 'fr'
+      ? `Merci ${email} ! Vous êtes inscrit à notre newsletter.`
+      : `Thank you ${email}! You are subscribed to our newsletter.`
+    );
+    this.reset();
+  }
+});
+
+/* ── THREE.JS HERO ── */
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hero-canvas'), alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const geo = new THREE.SphereGeometry(5, 40, 40);
+const mat = new THREE.MeshBasicMaterial({ color: 0x00FFFF, wireframe: true, transparent: true, opacity: 0.35 });
+const sphere = new THREE.Mesh(geo, mat);
+scene.add(sphere);
+
+const pts = [];
+for (let i = 0; i < 200; i++) {
+  const theta = Math.acos(2 * Math.random() - 1);
+  const phi = 2 * Math.PI * Math.random();
+  const r = 5 + Math.random() * 5;
+  pts.push(r * Math.sin(theta) * Math.cos(phi), r * Math.sin(theta) * Math.sin(phi), r * Math.cos(theta));
+}
+const ptGeo = new THREE.BufferGeometry();
+ptGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+const ptMat = new THREE.PointsMaterial({ color: 0xFF6B35, size: 0.08, transparent: true, opacity: 0.8 });
+const particles = new THREE.Points(ptGeo, ptMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  sphere.rotation.y += 0.004;
+  sphere.rotation.x += 0.002;
+  particles.rotation.y -= 0.002;
+  camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.03;
+  camera.position.y += (mouseY * 1.5 - camera.position.y) * 0.03;
+  camera.lookAt(scene.position);
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>
